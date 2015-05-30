@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html ng-app="squarefabricApp" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <link rel="icon" href="favicon.ico">
+
+        <link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="static/style.css"/>
+        <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
+        <script type="text/javascript" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="static/i18n.js"></script>
+        <script type="text/javascript" src="static/app.js"></script>
+        <script type="text/javascript" src="bin-packing/js/packer.js"></script>
+        <script type="text/javascript" src="static/packingmanager.js"></script>
+
+    </head>
+
+    <body ng-controller="SquarefabricCtrl">
+
+      <div class="container">
+        <div id="alertbox" class="alert {{userAlertType}}" ng-show="userMessage !== ''" role="alert">
+          <center>
+            <b>
+              {{userMessage}}
+            </b>
+          </center>
+        </div>
+      </div>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{_('Square fabric')}}</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li ng-class="{active: isActivePanel('piece')}" >
+                <a ng-click="togglePanel('piece')" href="#">{{_('Piece')}}</a>
+              </li>
+              <li ng-class="{active: isActivePanel('list')}">
+                <a ng-click="togglePanel('list')" href="#">{{_('List')}}</a>
+              </li>
+              <li ng-class="{active: isActivePanel('layout')}">
+                <a ng-click="togglePanel('layout')" href="#">{{_('Layout')}}</a>
+              </li>
+              <li ng-class="{active: isActivePanel('settings')}">
+                <a ng-click="togglePanel('settings')" href="#">{{_('Settings')}}</a>
+              </li>
+              <li ng-class="{active: isActivePanel('info')}">
+                <a ng-click="togglePanel('info')" href="#">{{_('Info')}}</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li ng-class="pull-rigth">
+                <a ng-click="toggleLanguage('fr')" href="#"><img src="static/fr.gif"/></a>
+              </li>
+              <li ng-class="pull-rigth">
+                <a ng-click="toggleLanguage('en')" href="#"><img src="static/en.gif"/></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+
+        <div class="row">
+
+          <form ng-show="isActivePanel('settings')" class="well col-md-2">
+            <h4>{{_('Settings')}}</h4>
+            <div class="form-group">
+              <label>{{_('Laize')}}</label>
+              <input ng-model="laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
+            </div>
+            <center>
+              <div class="form-group">
+                <button class="btn btn-success" ng-click="optimize()">{{_('Arrange')}}</button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-warning" ng-click="mock()">{{_('Fake pieces')}}</button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-danger" ng-click="clear()">{{_('Reset')}}</button>
+              </div>
+            </center>
+          </form>
+
+          <div ng-show="isActivePanel('info')" class="well col-md-2">
+            <h4>{{_('Info')}}</h4>
+            <table class="table">
+            <tr>
+              <td>{{_('Name')}}</td>
+              <td>{{hoveritem.name}}</td>
+            </tr>
+            <tr>
+              <td>X</td>
+              <td>{{hoveritem.fit.x}}</td>
+            </tr>
+            <tr>
+              <td>Y</td>
+              <td>{{hoveritem.fit.y}}</td>
+            </tr>
+            <tr>
+              <td>{{_('Width')}}</td>
+              <td>{{hoveritem.w}}</td>
+            </tr>
+            <tr>
+              <td>{{_('Height')}}</td>
+              <td>{{hoveritem.h}}</td>
+            </tr>
+            </table>
+          </div>
+
+          <form ng-show="isActivePanel('piece')" class="well col-md-2">
+            <h4>{{_('Piece edition')}}</h4>
+            <!--
+            <div class="form-group">
+              <label>{{_('Type')}}</label>
+              <select>
+                <option value="plain">{{_('Plain')}}</option>
+                <option value="pattern">{{_('Pattern')}}</option>
+              </select>
+            </div>
+            -->
+            <div class="form-group">
+              <label>{{_('Width')}}</label>
+              <input ng-model="currentPiece.w" type="number" class="form-control" placeholder="{{_('Piece width')}}">
+            </div>
+            <div class="form-group">
+              <label>{{_('Height')}}</label>
+              <input ng-model="currentPiece.h" type="number" class="form-control" placeholder="{{_('Piece height')}}">
+            </div>
+            <div class="form-group">
+              <label>{{_('Name')}}</label>
+              <input ng-model="currentPiece.name" type="text" class="form-control" placeholder="{{_('Piece name')}}">
+            </div>
+            <center>
+              <button type="submit" class="btn btn-default" ng-click="setPiece()">{{_('Set piece')}}</button>
+            </center>
+          </form>
+
+          <div ng-show="isActivePanel('list')" class="table-responsive">
+            <table class="table table-striped col-md-2">
+              <tr>
+                <th>{{_('Piece')}}</th>
+                <th>{{_('Width')}}</th>
+                <th>{{_('Heigth')}}</th>
+                <th>{{_('X')}}</th>
+                <th>{{_('Y')}}</th>
+                <th>{{_('Name')}}</th>
+                <th>{{_('Edit')}}</th>
+              </tr>
+              <tr ng-repeat="piece in pieces">
+                <td>{{$index + 1}}</td>
+                <td>{{piece.w}}</td>
+                <td>{{piece.h}}</td>
+                <td>{{piece.fit.x}}</td>
+                <td>{{piece.fit.y}}</td>
+                <td>{{piece.name}}</td>
+                <td>
+                  <button ng-click="updatePiece(piece)" title="{{_('update')}}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <button ng-click="removePiece($index)" title="{{_('remove')}}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="layout well" ng-show="isActivePanel('layout')">
+          <div class="rectangleHover"></div>
+          <canvas id="canvas"></canvas>
+        </div>
+
+      </div>
+    </body>
+</html>

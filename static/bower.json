@@ -1,0 +1,20 @@
+{
+  "name": "squarefabric",
+  "version": "0.0.0",
+  "authors": [
+    "utopman <eregnier@capensis.fr>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.3.15",
+    "bootstrap": "~3.3.4",
+    "jquery": "~2.1.3"
+  }
+}

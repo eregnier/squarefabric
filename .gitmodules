@@ -1,0 +1,3 @@
+[submodule "bin-packing"]
+	path = bin-packing
+	url = git@github.com:jakesgordon/bin-packing.git
