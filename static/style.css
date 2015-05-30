@@ -1,0 +1,33 @@
+body {
+  padding-top: 60px;
+}
+
+.showRect{
+	border:1px solid #333;
+	position:absolute;
+}
+
+.clear{
+	clear:both;
+}
+
+.rawFabric{
+	border:1px solid red;
+	padding:0px;
+	margin:0px;
+	overflow-x: auto;
+}
+
+.layout{
+	position:absolute;
+	right:20px;
+	top:70px;
+}
+
+.rectangleHover{
+	display: none;
+	background: #ea4b55;
+	position:absolute;
+	width: 30px;
+	height: 30px;
+}
