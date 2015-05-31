@@ -134,37 +134,48 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         }
         $scope.language = language;
 
-        var hover = hover = $('.rectangleHover'),
-            padding = parseInt($('.layout').css('padding').replace('px', ''));
+        var hover = hover = $('.rectangleHover');
 
-        $('#canvas').mousemove(function(e) {
+        $(document).ready(function () {
+            console.log('init canvas mouse move');
 
-            var x = e.offsetX,
-                y = e.offsetY,
-                pcs = $scope.pieces;
+            var canvas = $('#canvas');
 
-            for(var i=0;i<pcs.length;i++) { // check whether:
-                if(x > pcs[i].fit.x            // mouse x between x and x + width
-                && x < pcs[i].fit.x + pcs[i].w
-                && y > pcs[i].fit.y            // mouse y between y and y + height
-                && y < pcs[i].fit.y + pcs[i].h) {
+            canvas.mousemove(function(e) {
 
-                    // Make information available to info panel
-                    $scope.hoveritem = pcs[i];
-                    $scope.$apply();
+                var cx = e.pageX,
+                    cy = e.pageY,
+                    pcs = $scope.pieces,
+                    pl = parseInt($('.layout').css('padding-left').replace('px', '')),
+                    pt = parseInt($('.layout').css('padding-top').replace('px', '')),
+                    co = canvas.offset();
 
-                    console.log('Rectangle ' + i, pcs[i]);
-                    var nx = pcs[i].fit.x + padding,
-                        ny = pcs[i].fit.y + padding;
 
-                    hover.show()
-                    .css('left', nx + 'px')
-                    .css('top', ny + 'px')
-                    .css('width', pcs[i].w + 'px')
-                    .css('height', pcs[i].h + 'px');
+                var nx = cx - co.left,
+                    ny = cy - co.top;
 
+                for(var i=0;i<pcs.length;i++) { // check whether:
+                    if(nx > pcs[i].fit.x            // mouse x between x and x + width
+                    && nx < pcs[i].fit.x + pcs[i].w
+                    && ny > pcs[i].fit.y            // mouse y between y and y + height
+                    && ny < pcs[i].fit.y + pcs[i].h) {
+
+                        // Make information available to info panel
+                        $scope.hoveritem = pcs[i];
+                        $scope.$apply();
+
+                        console.log('Rectangle', i, nx, ny, pl, pt);
+
+                        hover.show()
+                        .css('left', (pcs[i].fit.x + pl) + 'px')
+                        .css('top', (pcs[i].fit.y + pt) + 'px')
+                        .css('width', pcs[i].w + 'px')
+                        .css('height', pcs[i].h + 'px');
+
+                    }
                 }
-            }
+
+            });
 
         });
 
