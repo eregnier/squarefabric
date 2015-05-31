@@ -27,6 +27,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         layout: false,
         settings: true,
         info: true,
+        about: false,
     };
     $scope.userMessage = '';
     $scope.userAlertType = 'alert-success';
@@ -64,8 +65,21 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
+        $scope.panels['about'] = false;
         $scope.panels[panelName] = !$scope.panels[panelName];
         $scope.activePanel = panelName;
+    };
+
+    $scope.allPanelsDisplay = function (doDisplay) {
+        for (var panel in $scope.panels) {
+            $scope.panels[panel] = doDisplay;
+        }
+    };
+
+
+    $scope.showAbout = function () {
+        $scope.allPanelsDisplay(false);
+        $scope.panels['about'] = true;
     };
 
     $scope.clear = function () {
