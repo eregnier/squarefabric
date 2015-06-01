@@ -31,7 +31,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
     $scope.userMessage = '';
     $scope.userAlertType = 'alert-success';
-    $scope.laize = 150;
+    $scope.laize = 140;
 
     $scope.mock = function(){
         $scope.pieces = [];
@@ -184,7 +184,8 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
                         .css('left', (pcs[i].fit.x + pl) + 'px')
                         .css('top', (pcs[i].fit.y + pt) + 'px')
                         .css('width', pcs[i].w + 'px')
-                        .css('height', pcs[i].h + 'px');
+                        .css('height', pcs[i].h + 'px')
+                        .html(pcs[i].name);
 
                     }
                 }
