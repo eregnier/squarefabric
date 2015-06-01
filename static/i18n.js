@@ -24,6 +24,7 @@ window.i18n = {
       "Y": "Y",
       "Edit": "Editer",
       "About": "A propos",
+      "Total height": "Hauteur totale"
     },
     en: {}
 };

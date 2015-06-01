@@ -18,6 +18,8 @@ var message = {
 };
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
+    $scope.version = '1.2';
+    $scope.maxHeight;
     $scope.pieces = [];
     $scope.currentPiece = {};
     $scope.editmode = false;
@@ -138,6 +140,14 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     $scope.optimize = function () {
         Pm.run($scope.pieces, $scope.laize);
         $scope.panels.layout = true;
+        $scope.maxHeight = 0;
+        for (var i=0; i<$scope.pieces.length; i++) {
+            var p = $scope.pieces[i];
+            var max = p.fit.y + p.h;
+            if (max > $scope.maxHeight) {
+                $scope.maxHeight = max;
+            }
+        }
     };
 
     $scope.init = function () {

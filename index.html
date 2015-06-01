@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <link rel="icon" href="favicon.ico">
 
-        <title>Square Fabric by utopman</title>
+        <title>Square Fabric</title>
 
         <link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="static/style.css"/>
@@ -107,27 +107,31 @@
           <div ng-show="isActivePanel('info')" class="well col-md-2">
             <h4>{{_('Info')}}</h4>
             <table class="table">
-            <tr>
-              <td>{{_('Name')}}</td>
-              <td>{{hoveritem.name}}</td>
-            </tr>
-            <tr>
-              <td>X</td>
-              <td>{{hoveritem.fit.x}}</td>
-            </tr>
-            <tr>
-              <td>Y</td>
-              <td>{{hoveritem.fit.y}}</td>
-            </tr>
-            <tr>
-              <td>{{_('Width')}}</td>
-              <td>{{hoveritem.w}}</td>
-            </tr>
-            <tr>
-              <td>{{_('Height')}}</td>
-              <td>{{hoveritem.h}}</td>
-            </tr>
+              <tr>
+                <td>{{_('Name')}}</td>
+                <td>{{hoveritem.name}}</td>
+              </tr>
+              <tr>
+                <td>X</td>
+                <td>{{hoveritem.fit.x}}</td>
+              </tr>
+              <tr>
+                <td>Y</td>
+                <td>{{hoveritem.fit.y}}</td>
+              </tr>
+              <tr>
+                <td>{{_('Width')}}</td>
+                <td>{{hoveritem.w}}</td>
+              </tr>
+              <tr>
+                <td>{{_('Height')}}</td>
+                <td>{{hoveritem.h}}</td>
+              </tr>
             </table>
+            <div ng-show="maxHeight" class="alert alert-info">
+              <center>{{_('Total height')}} {{maxHeight}}
+              </center>
+            </div>
           </div>
 
           <form ng-show="isActivePanel('piece')" class="well col-md-2">
@@ -194,10 +198,8 @@
           <canvas id="canvas"></canvas>
         </div>
 
-        <div ng-show="isActivePanel('about')" class="col-md-2">
-          <div class="well">
-            <p>{{_('Square fabric')}} by utopman V1.1</p>
-          </div>
+        <div ng-show="isActivePanel('about')" class="alert alert-info">
+            <p>{{_('Square fabric')}} by utopman V{{version}}</p>
         </div>
 
       </div>
