@@ -19,7 +19,7 @@ window.i18n = {
       "Height": "Hauteur",
       "Piece edition": "Edition de pièce",
       "Set piece": "Définir pièce",
-      "Heigth": "Hauteur",
+      "Height": "Hauteur",
       "X": "X",
       "Y": "Y",
       "Edit": "Editer",

@@ -91,6 +91,11 @@
               <label>{{_('Laize')}}</label>
               <input ng-model="laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
             </div>
+            <div class="form-group">
+              <label>{{_('Coefficient')}}</label>
+              <input ng-model="coefficient" min="1" max="5" step="0.25" type="range" class="form-control">
+              {{coefficient}}
+            </div>
             <center>
               <div class="form-group">
                 <button class="btn btn-success" ng-click="optimize()">{{_('Arrange')}}</button>
@@ -167,7 +172,7 @@
               <tr>
                 <th>{{_('Piece')}}</th>
                 <th>{{_('Width')}}</th>
-                <th>{{_('Heigth')}}</th>
+                <th>{{_('Height')}}</th>
                 <th>{{_('X')}}</th>
                 <th>{{_('Y')}}</th>
                 <th>{{_('Name')}}</th>
