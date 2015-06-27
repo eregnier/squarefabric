@@ -24,7 +24,19 @@ window.i18n = {
       "Y": "Y",
       "Edit": "Editer",
       "About": "A propos",
-      "Total height": "Hauteur totale"
+      "Total height": "Hauteur totale",
+      "Tip: save often your work with the save button in the top bar.": "Astuce: sauvegarder souvent le travail avec le bouton dans la barre en haut.",
+      "Project name": "Nom du projet",
+      "Description": "Description",
+      "Project": "Projet",
+      "Current project": "Projet courant",
+      "Coefficient": "Coefficient",
+      "Project edition": "Edition du projet",
+      "New project": "Nouveau projet",
+      "Actions": "Actions",
+      "remove":"supprimer",
+      "edit":"éditer",
+      "Save": 'Sauvegarder'
     },
     en: {}
 };

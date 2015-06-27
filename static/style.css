@@ -32,3 +32,9 @@ body {
 	height: 30px;
 	text-align: center;
 }
+
+.handle {
+	height:20px;
+	width:100%;
+
+}

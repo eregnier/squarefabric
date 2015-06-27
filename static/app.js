@@ -188,7 +188,10 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
     $scope.loadWorkingSpace = function() {
         try {
-            $scope.projects = JSON.parse(localStorage.getItem('projects'));
+            var projects = JSON.parse(localStorage.getItem('projects'));
+            if (projects) {
+                $scope.projects = projects;
+            }
         } catch (err) {
             $scope.showUserMessage('Unable to load previous work, sorry', 'danger');
         }
