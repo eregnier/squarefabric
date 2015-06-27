@@ -20,23 +20,53 @@ var message = {
 squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     $scope.version = '1.2';
     $scope.maxHeight;
-    $scope.pieces = [];
     $scope.currentPiece = {};
+    $scope.projects = [];
     $scope.editmode = false;
+
     $scope.panels = {
         piece: false,
-        list: true,
+        list: false,
         layout: false,
-        settings: true,
-        info: true,
+        settings: false,
+        info: false,
         about: false,
+        project: true,
     };
+
     $scope.userMessage = '';
     $scope.userAlertType = 'alert-success';
     $scope.laize = 140;
 
+    $scope._ = function (word) {
+        var translation = i18n[$scope.language][word];
+        if (translation) {
+            return translation;
+        } else {
+            i18ntodo[word] = '';
+            return word;
+        }
+    };
+
+    $scope.editProject = function (project) {
+        $scope.currentProject = project;
+    };
+    $scope.newProject = function () {
+        $scope.currentProject = {
+            pieces: []
+        };
+        $scope.projects.push($scope.currentProject);
+    };
+
+    $scope.removeProject = function (index) {
+        if(confirm($scope._('Remove project ?'))) {
+            $scope.projects.splice(index, 1);
+            $scope.currentProject = undefined;
+        }
+    };
+
     $scope.mock = function(){
-        $scope.pieces = [];
+        $scope.currentProject.pieces = [];
         $scope.editmode = false;
         var r = function () { return parseInt(Math.random()*45+5);};
         for (var i=0; i<50; i++) {
@@ -49,7 +79,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
 
     $scope.showUserMessage = function (message, level) {
-
         console.log(message);
 
         $scope.userMessage = $scope._(message);
@@ -67,9 +96,18 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
-        $scope.panels['about'] = false;
-        $scope.panels[panelName] = !$scope.panels[panelName];
-        $scope.activePanel = panelName;
+        if (panelName === 'project' && !$scope.panels['project']) {
+            $scope.allPanelsDisplay(false);
+            $scope.panels['project'] = true;
+        } else {
+            if ($scope.currentProject) {
+                $scope.panels['about'] = false;
+                $scope.panels[panelName] = !$scope.panels[panelName];
+                $scope.activePanel = panelName;
+            } else {
+                $scope.showUserMessage('No project selected', 'info');
+            }
+        }
     };
 
     $scope.allPanelsDisplay = function (doDisplay) {
@@ -85,7 +123,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.clear = function () {
-        $scope.pieces = [];
+        $scope.currentProject.pieces = [];
         $scope.currentPiece = {};
         $scope.optimize();
         $scope.panels.layout = false;
@@ -93,18 +131,9 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         $('.rectangleHover').hide();
     };
 
-    $scope._ = function (word) {
-        var translation = i18n[$scope.language][word];
-        if (translation) {
-            return translation;
-        } else {
-            i18ntodo[word] = '';
-            return word;
-        }
-    };
 
     $scope.removePiece = function (index) {
-        $scope.pieces.splice(index, 1);
+        $scope.currentProject.pieces.splice(index, 1);
     };
 
     $scope.updatePiece = function (piece) {
@@ -128,7 +157,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
             $scope.editmode = false;
         } else {
             if (validSizeNumber($scope.currentPiece.h) && validSizeNumber($scope.currentPiece.w)) {
-                $scope.pieces.push($scope.currentPiece);
+                $scope.currentProject.pieces.push($scope.currentPiece);
                 $scope.currentPiece = {};
             } else {
                 $scope.showUserMessage('Invalid number given', message.warning);
@@ -138,15 +167,30 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.optimize = function () {
-        Pm.run($scope.pieces, $scope.laize);
+        Pm.run($scope.currentProject.pieces, $scope.laize);
         $scope.panels.layout = true;
         $scope.maxHeight = 0;
-        for (var i=0; i<$scope.pieces.length; i++) {
-            var p = $scope.pieces[i];
+        for (var i=0; i<$scope.currentProject.pieces.length; i++) {
+            var p = $scope.currentProject.pieces[i];
             var max = p.fit.y + p.h;
             if (max > $scope.maxHeight) {
                 $scope.maxHeight = max;
             }
+        }
+    };
+
+    $scope.saveWorkingSpace = function() {
+        var projects = JSON.stringify($scope.projects);
+        console.log(projects);
+        localStorage.setItem('projects', projects);
+    };
+
+
+    $scope.loadWorkingSpace = function() {
+        try {
+            $scope.projects = JSON.parse(localStorage.getItem('projects'));
+        } catch (err) {
+            $scope.showUserMessage('Unable to load previous work, sorry', 'danger');
         }
     };
 
@@ -157,6 +201,11 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
             language = 'en';
         }
         $scope.language = language;
+
+        $scope.showUserMessage(
+            'Tip: save often your work with the save button in the top bar.',
+            'info'
+        )
 
         var hover = hover = $('.rectangleHover');
 
@@ -169,7 +218,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
                 var cx = e.pageX,
                     cy = e.pageY,
-                    pcs = $scope.pieces,
+                    pcs = $scope.currentProject.pieces,
                     pl = parseInt($('.layout').css('padding-left').replace('px', '')),
                     pt = parseInt($('.layout').css('padding-top').replace('px', '')),
                     co = canvas.offset();
@@ -203,7 +252,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
             });
 
         });
-
+        $scope.loadWorkingSpace();
     };
 
     $scope.init();

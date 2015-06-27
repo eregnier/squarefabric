@@ -46,6 +46,12 @@
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+              <li ng-class="{active: isActivePanel('project')}">
+                <a ng-click="togglePanel('project')" href="#">{{_('Project')}}</a>
+              </li>
+              <li ng-class="{active: isActivePanel('settings')}">
+                <a ng-click="togglePanel('settings')" href="#">{{_('Settings')}}</a>
+              </li>
               <li ng-class="{active: isActivePanel('piece')}" >
                 <a ng-click="togglePanel('piece')" href="#">{{_('Piece')}}</a>
               </li>
@@ -55,11 +61,11 @@
               <li ng-class="{active: isActivePanel('layout')}">
                 <a ng-click="togglePanel('layout')" href="#">{{_('Layout')}}</a>
               </li>
-              <li ng-class="{active: isActivePanel('settings')}">
-                <a ng-click="togglePanel('settings')" href="#">{{_('Settings')}}</a>
-              </li>
               <li ng-class="{active: isActivePanel('info')}">
                 <a ng-click="togglePanel('info')" href="#">{{_('Info')}}</a>
+              </li>
+              <li>
+                <a href="#" ng-show="currentProject.name">{{_('Current project')}} {{currentProject.name | limitTo : 15}}</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -68,6 +74,11 @@
               </li>
               <li ng-class="pull-rigth">
                 <a ng-click="toggleLanguage('en')" href="#"><img src="static/en.gif"/></a>
+              </li>
+              <li ng-class="pull-rigth">
+                <a ng-click="saveWorkingSpace()" href="#" title="Save">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                </a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -141,15 +152,6 @@
 
           <form ng-show="isActivePanel('piece')" class="well col-md-2">
             <h4>{{_('Piece edition')}}</h4>
-            <!--
-            <div class="form-group">
-              <label>{{_('Type')}}</label>
-              <select>
-                <option value="plain">{{_('Plain')}}</option>
-                <option value="pattern">{{_('Pattern')}}</option>
-              </select>
-            </div>
-            -->
             <div class="form-group">
               <label>{{_('Width')}}</label>
               <input ng-model="currentPiece.w" type="number" class="form-control" placeholder="{{_('Piece width')}}">
@@ -167,6 +169,51 @@
             </center>
           </form>
 
+          <form ng-show="isActivePanel('project')" class="well col-md-4">
+            <h4>{{_('Project edition')}}</h4>
+            <div ng-show="currentProject">
+              <div class="form-group">
+                <label>{{_('Project name')}}</label>
+                <input ng-model="currentProject.name" type="text" class="form-control" placeholder="{{_('Project name')}}">
+              </div>
+              <div class="form-group">
+                <label>{{_('Description')}}</label>
+                <textarea cols="20" rows="7" ng-model="currentProject.description" class="form-control" placeholder="{{_('Description')}}"></textarea>
+              </div>
+            </div>
+            <center>
+              <button type="submit" class="btn btn-primary btn-xs" ng-click="newProject()">
+                <span class="glyphicon glyphicon-list"></span>
+                {{_('New project')}}
+              </button>
+            </center>
+          </form>
+
+          <div ng-show="isActivePanel('project')" class="table-responsive">
+            <table class="table table-striped col-md-2">
+              <tr>
+                <th>{{_('Name')}}</th>
+                <th>{{_('Description')}}</th>
+                <th>{{_('Actions')}}</th>
+              </tr>
+              <tr ng-repeat="project in projects">
+                <td>{{project.name}}</td>
+                <td>{{project.description | limitTo : 30}}</td>
+                <td>
+                  <button class="btn btn-default btn-sm" ng-click="editProject(project)" title="{{_('edit')}}">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <button class="btn btn-default btn-sm" ng-click="removeProject($index)" title="{{_('remove')}}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
+
           <div ng-show="isActivePanel('list')" class="table-responsive">
             <table class="table table-striped col-md-2">
               <tr>
@@ -178,7 +225,7 @@
                 <th>{{_('Name')}}</th>
                 <th>{{_('Edit')}}</th>
               </tr>
-              <tr ng-repeat="piece in pieces">
+              <tr ng-repeat="piece in currentProject.pieces">
                 <td>{{$index + 1}}</td>
                 <td>{{piece.w}}</td>
                 <td>{{piece.h}}</td>
