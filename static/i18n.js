@@ -36,7 +36,16 @@ window.i18n = {
       "Actions": "Actions",
       "remove":"supprimer",
       "edit":"éditer",
-      "Save": 'Sauvegarder'
+      "Save": "Sauvegarder",
+      "Manage remote data": "Gérer les données sur le cloud",
+      "username": "nom d'utilisateur",
+      "password": "mot de passe",
+      "Cloud data management": "Gestion des données du cloud",
+      "Allow project information share between computers": "Permet le partage d'information entre les ordinateurs",
+      "Username": "Nom d'utilisateur",
+      "Password": "Mot de passe",
+      "Download": "Download",
+      "Upload": "Upload"
     },
     en: {}
 };

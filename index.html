@@ -11,13 +11,6 @@
 
         <link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="static/style.css"/>
-        <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
-        <script type="text/javascript" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="static/i18n.js"></script>
-        <script type="text/javascript" src="static/app.js"></script>
-        <script type="text/javascript" src="bin-packing/js/packer.js"></script>
-        <script type="text/javascript" src="static/packingmanager.js"></script>
 
     </head>
 
@@ -80,6 +73,11 @@
                   <span class="glyphicon glyphicon-floppy-disk"></span>
                 </a>
               </li>
+              <li ng-class="pull-rigth">
+                <a ng-click="togglePanel('cloud')" href="#" title="{{_('Manage remote data')}}">
+                  <span class="glyphicon glyphicon-retweet"></span>
+                </a>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li ng-class="pull-rigth">
@@ -116,6 +114,27 @@
               </div>
               <div class="form-group">
                 <button class="btn btn-danger" ng-click="clear()">{{_('Reset')}}</button>
+              </div>
+            </center>
+          </form>
+
+          <form ng-show="isActivePanel('cloud')" class="well col-md-4">
+            <h4>{{_('Cloud data management')}}</h4>
+            <p>{{_('Allow project information share between computers')}}</p>
+            <div class="form-group">
+              <label>{{_('Username')}}</label>
+              <input ng-model="uploadUser" type="text" class="form-control" placeholder="{{_('username')}}">
+            </div>
+            <div class="form-group">
+              <label>{{_('Password')}}</label>
+              <input ng-model="uploadPassword" type="password" class="form-control" placeholder="{{_('password')}}">
+            </div>
+            <center>
+              <div class="form-group">
+                <button class="btn btn-default" ng-click="downloadProjects()">{{_('Download')}}</button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-default" ng-click="uploadProjects()">{{_('Upload')}}</button>
               </div>
             </center>
           </form>
@@ -255,5 +274,16 @@
         </div>
 
       </div>
+
+      <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
+      <script type="text/javascript" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="static/i18n.js"></script>
+      <script type="text/javascript" src='static/firebase.js'></script>
+      <script type="text/javascript" src='static/angularfire.min.js'></script>
+      <script type="text/javascript" src="bin-packing/js/packer.js"></script>
+      <script type="text/javascript" src="static/packingmanager.js"></script>
+      <script type="text/javascript" src="static/app.js"></script>
+
     </body>
 </html>

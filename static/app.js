@@ -1,10 +1,15 @@
-var squarefabricApp = angular.module('squarefabricApp', []);
+var squarefabricApp = angular.module('squarefabricApp', ['firebase']);
 
-var fabricTypes = {
-    PLAIN: 'plain',
-    PATTERN: 'pattern',
+var db = 'https://blistering-fire-6579.firebaseio.com/';
 
-};
+squarefabricApp.factory('Projects', ['$firebaseArray',
+  function($firebaseArray) {
+    return function(user, password) {
+      var ref = new Firebase(db + 'squarefabric/projects/' + user + '/' + password);
+      return $firebaseArray(ref);
+    };
+  }
+]);
 
 SHOW_MESSAGE_BOX_DELAY = 4500;
 DEBUG = false;
@@ -17,8 +22,10 @@ var message = {
 
 };
 
-squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
-    $scope.version = '1.2';
+squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
+
+    $scope.version = '2.0';
+
     $scope.maxHeight;
     $scope.currentPiece = {};
     $scope.projects = [];
@@ -32,11 +39,61 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         info: false,
         about: false,
         project: true,
+        cloud: false,
     };
 
     $scope.userMessage = '';
     $scope.userAlertType = 'alert-success';
     $scope.laize = 140;
+
+    $scope.checkUserInputs = function () {
+        if ($scope.uploadUser && $scope.uploadPassword) {
+            return true;
+        } else {
+            $scope.showUserMessage('User information error', 'warning');
+        }
+    };
+
+    $scope.uploadProjects = function () {
+
+        if($scope.checkUserInputs()) {
+            if($scope.projects.length) {
+                var fireprojects = Projects($scope.uploadUser, $scope.uploadPassword);
+
+                //clear remote data
+                fireprojects.forEach(function (project) {
+                    fireprojects.$remove(project);
+                });
+
+                var length = $scope.projects.length;
+                //add local data to remote
+                for(var i=0; i<length; i++) {
+                    fireprojects.$add($scope.projects[i]);
+                }
+               $scope.showUserMessage('Upload complete', 'success');
+            } else {
+                $scope.showUserMessage('Nothing to upload', 'warning');
+            }
+        }
+    };
+
+    $scope.downloadProjects = function () {
+        if($scope.checkUserInputs()) {
+            var fireprojects = Projects($scope.uploadUser, $scope.uploadPassword);
+
+            //clear local data
+            $scope.projects = [];
+
+            //add remote data to local content
+            fireprojects.$loaded(function (data) {
+                data.forEach(function (project) {
+                    $scope.projects.push(project);
+                });
+            });
+            $scope.showUserMessage('Download complete', 'success');
+
+        }
+    };
 
     $scope._ = function (word) {
         var translation = i18n[$scope.language][word];
@@ -96,7 +153,10 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
-        if (panelName === 'project' && !$scope.panels['project']) {
+        if (panelName === 'cloud') {
+            $scope.allPanelsDisplay(false);
+            $scope.panels['cloud'] = true;
+        } else if (panelName === 'project' && !$scope.panels['project']) {
             $scope.allPanelsDisplay(false);
             $scope.panels['project'] = true;
         } else {
@@ -181,7 +241,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
     $scope.saveWorkingSpace = function() {
         var projects = JSON.stringify($scope.projects);
-        console.log(projects);
         localStorage.setItem('projects', projects);
     };
 
@@ -213,7 +272,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         var hover = hover = $('.rectangleHover');
 
         $(document).ready(function () {
-            console.log('init canvas mouse move');
 
             var canvas = $('#canvas');
 
