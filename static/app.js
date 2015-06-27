@@ -226,9 +226,19 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
     };
 
+    $scope.showLayout = function () {
+        $scope.panels.layout = true;
+        var layout = $('.layout');
+        var position = layout.position();
+        var x = window.innerWidth / 2 - position.left / 2;
+        var y = 70;
+
+        layout.css('left', x + 'px');
+        layout.css('top', y + 'px');
+    };
+
     $scope.optimize = function () {
         Pm.run($scope.currentProject.pieces, $scope.laize);
-        $scope.panels.layout = true;
         $scope.maxHeight = 0;
         for (var i=0; i<$scope.currentProject.pieces.length; i++) {
             var p = $scope.currentProject.pieces[i];
@@ -237,6 +247,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
                 $scope.maxHeight = max;
             }
         }
+        $scope.showLayout();
     };
 
     $scope.saveWorkingSpace = function() {
@@ -268,10 +279,11 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
             'Tip: save often your work with the save button in the top bar.',
             'info'
         )
-
         var hover = hover = $('.rectangleHover');
 
         $(document).ready(function () {
+
+            $scope.setDraggable($('.layout'), $('.layout'));
 
             var canvas = $('#canvas');
 
@@ -314,6 +326,20 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
         });
         $scope.loadWorkingSpace();
+    };
+
+    $scope.setDraggable = function (handle, dragElement) {
+        handle.on('mousedown', function() {
+            console.log('mousedown', $(this));
+            dragElement.addClass('draggable').parents().on('mousemove', function(e) {
+                $('.draggable').offset({
+                    top: e.pageY - 50,
+                    left: e.pageX - $('.draggable').outerWidth() / 2
+                }).on('mouseup', function() {
+                    dragElement.removeClass('draggable');
+                });
+            });
+        });
     };
 
     $scope.init();

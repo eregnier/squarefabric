@@ -20,8 +20,6 @@ body {
 
 .layout{
 	position:absolute;
-	right:20px;
-	top:70px;
 }
 
 .rectangleHover{
@@ -34,7 +32,5 @@ body {
 }
 
 .handle {
-	height:20px;
-	width:100%;
-
+	cursor: move;
 }
