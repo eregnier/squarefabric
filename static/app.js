@@ -294,10 +294,16 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         );
 
         var hover = $('.rectangleHover'),
-             padding = parseInt($('.layout').css('padding').replace('px', ''));
+            handle =$('.handle'),
+            padding = parseInt($('.layout').css('padding').replace('px', ''));
 
-         $('#canvas').mousemove(function(e) {
-            var pcs = $scope.currentProject.pieces;
+        $scope.setDraggable(handle, handle);
+
+        $('#canvas').mousemove(function(e) {
+
+            var pcs = $scope.currentProject.pieces,
+                x = e.offsetX,
+                y = e.offsetY;
 
             for(var i=0;i<pcs.length;i++) { // check whether:
 
@@ -322,6 +328,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
                     .css('width', pw + 'px')
                     .css('height', ph + 'px');
 
+                    break;
                  }
 
             }
