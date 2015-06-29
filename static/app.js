@@ -26,7 +26,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
     $scope.version = '2.0';
 
-    $scope.maxHeight;
+    $scope.maxHeight = 0;
     $scope.currentPiece = {};
     $scope.projects = [];
     $scope.editmode = false;
@@ -204,7 +204,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
     $scope.toggleLanguage = function (language) {
         localStorage.setItem('language', language);
         window.location = 'index.html';
-    }
+    };
 
     $scope.setPiece = function () {
 
@@ -238,7 +238,8 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
     };
 
     $scope.optimize = function () {
-        Pm.run($scope.currentProject.pieces, $scope.laize);
+        var packer = Pm.optimize($scope.currentProject.pieces, $scope.laize, 1000);
+
         $scope.maxHeight = 0;
         for (var i=0; i<$scope.currentProject.pieces.length; i++) {
             var p = $scope.currentProject.pieces[i];
@@ -247,6 +248,10 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
                 $scope.maxHeight = max;
             }
         }
+        packer.root.h = $scope.maxHeight;
+        $('#canvas').width(packer.root.w * $scope.coefficient);
+        Pm.repaint($scope.currentProject.pieces, packer, $scope.coefficient);
+
         $scope.showLayout();
     };
 
@@ -267,6 +272,14 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         }
     };
 
+    $scope.getCoefficient = function () {
+        var coefficient = window.innerWidth / $('#canvas').width();
+        console.log('coefficient', coefficient);
+        return coefficient;
+    };
+
+    $scope.coefficient = $scope.getCoefficient();
+
     $scope.init = function () {
 
         var language = localStorage.getItem('language');
@@ -278,51 +291,40 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         $scope.showUserMessage(
             'Tip: save often your work with the save button in the top bar.',
             'info'
-        )
-        var hover = hover = $('.rectangleHover');
+        );
 
-        $(document).ready(function () {
+        var hover = $('.rectangleHover'),
+             padding = parseInt($('.layout').css('padding').replace('px', ''));
 
-            $scope.setDraggable($('.layout'), $('.layout'));
+         $('#canvas').mousemove(function(e) {
+            var pcs = $scope.currentProject.pieces;
 
-            var canvas = $('#canvas');
+            for(var i=0;i<pcs.length;i++) { // check whether:
 
-            canvas.mousemove(function(e) {
+                var fx = pcs[i].fit.x * $scope.coefficient,
+                    fy = pcs[i].fit.y * $scope.coefficient,
+                    pw = pcs[i].w * $scope.coefficient,
+                    ph = pcs[i].h * $scope.coefficient;
 
-                var cx = e.pageX,
-                    cy = e.pageY,
-                    pcs = $scope.currentProject.pieces,
-                    pl = parseInt($('.layout').css('padding-left').replace('px', '')),
-                    pt = parseInt($('.layout').css('padding-top').replace('px', '')),
-                    co = canvas.offset();
+                if(x > fx && x < fx + pw && y > fy && y < fy + ph) {
 
+                    // Make information available to info panel
+                    $scope.hoveritem = pcs[i];
+                    $scope.$apply();
 
-                var nx = cx - co.left,
-                    ny = cy - co.top;
+                    console.log('Rectangle ' + i, pcs[i]);
+                    var nx = fx + padding,
+                        ny = fy + padding;
 
-                for(var i=0;i<pcs.length;i++) { // check whether:
-                    if(nx > pcs[i].fit.x            // mouse x between x and x + width
-                    && nx < pcs[i].fit.x + pcs[i].w
-                    && ny > pcs[i].fit.y            // mouse y between y and y + height
-                    && ny < pcs[i].fit.y + pcs[i].h) {
+                    hover.show()
+                    .css('left', nx + 'px')
+                    .css('top', ny + 'px')
+                    .css('width', pw + 'px')
+                    .css('height', ph + 'px');
 
-                        // Make information available to info panel
-                        $scope.hoveritem = pcs[i];
-                        $scope.$apply();
+                 }
 
-                        console.log('Rectangle', i, nx, ny, pl, pt);
-
-                        hover.show()
-                        .css('left', (pcs[i].fit.x + pl) + 'px')
-                        .css('top', (pcs[i].fit.y + pt) + 'px')
-                        .css('width', pcs[i].w + 'px')
-                        .css('height', pcs[i].h + 'px')
-                        .html(pcs[i].name);
-
-                    }
-                }
-
-            });
+            }
 
         });
         $scope.loadWorkingSpace();

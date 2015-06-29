@@ -18,10 +18,9 @@ Pm = {
 
   //---------------------------------------------------------------------------
 
-  run: function(blocks, W) {
+  optimize: function(blocks, W, H) {
 
-    var H = 1000,
-        sort = 'height';
+    var sort = 'height';
 
     var packer = new Packer(W, H);
 
@@ -29,8 +28,13 @@ Pm = {
 
     packer.fit(blocks);
 
-    Pm.canvas.reset(packer.root.w, packer.root.h);
-    Pm.canvas.blocks(blocks);
+    return packer;
+
+  },
+
+  repaint: function (blocks, packer, coefficient) {
+    Pm.canvas.reset(packer.root.w * coefficient, packer.root.h * coefficient);
+    Pm.canvas.blocks(blocks, coefficient);
     Pm.canvas.boundary(packer.root);
     Pm.report(blocks, packer.root.w, packer.root.h);
   },
@@ -97,21 +101,34 @@ Pm = {
     },
 
     stroke: function(x, y, w, h) {
-      Pm.el.draw.strokeRect(x + 0.5, y + 0.5, w, h);
+      //Pm.el.draw.strokeRect(x + 0.5, y + 0.5, w, h);
     },
 
-    blocks: function(blocks) {
+    blocks: function(blocks, coefficient) {
       var n, block;
       for (n = 0 ; n < blocks.length ; n++) {
         block = blocks[n];
-        if (block.fit)
-          Pm.canvas.rect(block.fit.x, block.fit.y, block.w, block.h, Pm.color(n));
+        if (block.fit) {
+          Pm.canvas.rect(
+            block.fit.x * coefficient,
+            block.fit.y * coefficient,
+            block.w * coefficient,
+            block.h * coefficient,
+            Pm.color(n),
+            block.name
+          );
+        }
       }
     },
 
     boundary: function(node) {
       if (node) {
-        Pm.canvas.stroke(node.x, node.y, node.w, node.h);
+        Pm.canvas.stroke(
+          node.x,
+          node.y,
+          node.w,
+          node.h
+        );
         Pm.canvas.boundary(node.down);
         Pm.canvas.boundary(node.right);
       }
