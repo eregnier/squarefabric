@@ -34,3 +34,11 @@ body {
 .handle {
 	cursor: move;
 }
+
+.logo {
+	width:30px;
+	height:30px;
+	background: #eee;
+	padding: 3px;
+	border-radius: 3px;
+}

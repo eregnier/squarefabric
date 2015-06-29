@@ -35,10 +35,15 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{_('Square fabric')}}</a>
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+              <li>
+                <a href="index.html">
+                  <img src="static/icon.png" class="logo"/>
+                  {{_('Square fabric')}}
+                </a>
+              </li>
               <li ng-class="{active: isActivePanel('project')}">
                 <a ng-click="togglePanel('project')" href="#">{{_('Project')}}</a>
               </li>
@@ -270,7 +275,10 @@
         </div>
 
         <div ng-show="isActivePanel('about')" class="alert alert-info">
-            <p>{{_('Square fabric')}} by utopman V{{version}}</p>
+            <p>
+              <img src="static/icon.png" class="logo"/>
+              {{_('Square fabric')}} by utopman V{{version}}
+            </p>
         </div>
 
       </div>
