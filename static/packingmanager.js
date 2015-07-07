@@ -147,7 +147,7 @@ Pm = {
   },
 
   color: function(n) {
-    var cols = Pm.colors['pastel'];
+    var cols = Pm.colors['basic'];
     return cols[n % cols.length];
   }
 

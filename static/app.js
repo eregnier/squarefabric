@@ -161,22 +161,22 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
     $scope.togglePanel = function (panelName) {
         if (panelName === 'layout') {
             $scope.allPanelsDisplay(false);
-            $scope.panels['layout'] = !$scope.panels['layout'];
+            $scope.panels['layout'] = true;
             if ($scope.panels['layout']) {
                 $scope.optimize();
             }
         } else if (panelName === 'cloud') {
             $scope.allPanelsDisplay(false);
             $scope.panels['cloud'] = true;
-        } else if (panelName === 'project' && !$scope.panels['project']) {
+        } else if (panelName === 'project') {
             $scope.allPanelsDisplay(false);
             $scope.panels['project'] = true;
         } else if(panelName === 'edition') {
             if ($scope.currentProject) {
-                $scope.allPanelsDisplay(true);
-                $scope.panels['about'] = false;
-                $scope.panels['project'] = false;
-                $scope.panels['cloud'] = false;
+                $scope.allPanelsDisplay(false);
+                $scope.panels['piece'] = true;
+                $scope.panels['settings'] = true;
+                $scope.panels['list'] = true;
             } else {
                 $scope.showUserMessage('No project selected', 'info');
             }
