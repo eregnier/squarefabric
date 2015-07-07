@@ -95,9 +95,13 @@ Pm = {
       Pm.el.draw.clearRect(0, 0, Pm.el.canvas.width, Pm.el.canvas.height);
     },
 
-    rect:  function(x, y, w, h, color) {
+    rect:  function(x, y, w, h, color, name) {
       Pm.el.draw.fillStyle = color;
       Pm.el.draw.fillRect(x + 0.5, y + 0.5, w, h);
+      Pm.el.draw.fillStyle = '#999';
+      Pm.el.draw.strokeRect(x + 0.5, y + 0.5, w, h);
+      Pm.el.draw.strokeText(name, x + 3, y + (h/2) - 8);
+      Pm.el.draw.strokeText(parseInt(w) + ' x ' + parseInt(y), x + 3, y + (h/2) + 8);
     },
 
     stroke: function(x, y, w, h) {
@@ -147,7 +151,7 @@ Pm = {
   },
 
   color: function(n) {
-    var cols = Pm.colors['basic'];
+    var cols = Pm.colors['pastel'];
     return cols[n % cols.length];
   }
 

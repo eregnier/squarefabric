@@ -327,7 +327,8 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
             var pcs = $scope.currentProject.pieces,
                 x = e.offsetX,
-                y = e.offsetY;
+                y = e.offsetY,
+                ctop = $('#canvas').position().top;
 
             for(var i=0;i<pcs.length;i++) { // check whether:
 
@@ -343,12 +344,11 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
                     $scope.$apply();
 
                     console.log('Rectangle ' + i, pcs[i]);
-                    var nx = fx + padding,
-                        ny = fy + padding;
+                    var nx = fx + padding;
 
                     hover.show()
                     .css('left', nx + 'px')
-                    .css('top', ny + 'px')
+                    .css('top', (fy + ctop) + 'px')
                     .css('width', pw + 'px')
                     .css('height', ph + 'px');
 
