@@ -47,20 +47,8 @@
               <li ng-class="{active: isActivePanel('project')}">
                 <a ng-click="togglePanel('project')" href="#">{{_('Project')}}</a>
               </li>
-              <li ng-class="{active: isActivePanel('settings')}">
-                <a ng-click="togglePanel('settings')" href="#">{{_('Settings')}}</a>
-              </li>
-              <li ng-class="{active: isActivePanel('piece')}" >
-                <a ng-click="togglePanel('piece')" href="#">{{_('Piece')}}</a>
-              </li>
-              <li ng-class="{active: isActivePanel('list')}">
-                <a ng-click="togglePanel('list')" href="#">{{_('List')}}</a>
-              </li>
-              <li ng-class="{active: isActivePanel('layout')}">
-                <a ng-click="togglePanel('layout')" href="#">{{_('Layout')}}</a>
-              </li>
-              <li ng-class="{active: isActivePanel('info')}">
-                <a ng-click="togglePanel('info')" href="#">{{_('Info')}}</a>
+              <li ng-class="{active: isActivePanel('edition')}">
+                <a ng-click="togglePanel('edition')" href="#">{{_('Edition')}}</a>
               </li>
               <li>
                 <a href="#" ng-show="currentProject.name">{{_('Current project')}} {{currentProject.name | limitTo : 15}}</a>
@@ -81,6 +69,11 @@
               <li ng-class="pull-rigth">
                 <a ng-click="togglePanel('cloud')" href="#" title="{{_('Manage remote data')}}">
                   <span class="glyphicon glyphicon-retweet"></span>
+                </a>
+              </li>
+              <li ng-show="debug" ng-class="pull-rigth">
+                <a ng-click="mock()" href="#" title="{{_('fake pieces')}}">
+                  <span class="glyphicon glyphicon-copy"></span>
                 </a>
               </li>
             </ul>
@@ -111,15 +104,7 @@
               {{coefficient}}
             </div>
             <center>
-              <div class="form-group">
-                <button class="btn btn-success" ng-click="optimize()">{{_('Arrange')}}</button>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-warning" ng-click="mock()">{{_('Fake pieces')}}</button>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-danger" ng-click="clear()">{{_('Reset')}}</button>
-              </div>
+              <button class="btn btn-default btn-sm" ng-click="optimize()">{{_('Ok')}}</button>
             </center>
           </form>
 
@@ -144,36 +129,6 @@
             </center>
           </form>
 
-          <div ng-show="isActivePanel('info')" class="well col-md-2">
-            <h4>{{_('Info')}}</h4>
-            <table class="table">
-              <tr>
-                <td>{{_('Name')}}</td>
-                <td>{{hoveritem.name}}</td>
-              </tr>
-              <tr>
-                <td>X</td>
-                <td>{{hoveritem.fit.x}}</td>
-              </tr>
-              <tr>
-                <td>Y</td>
-                <td>{{hoveritem.fit.y}}</td>
-              </tr>
-              <tr>
-                <td>{{_('Width')}}</td>
-                <td>{{hoveritem.w}}</td>
-              </tr>
-              <tr>
-                <td>{{_('Height')}}</td>
-                <td>{{hoveritem.h}}</td>
-              </tr>
-            </table>
-            <div ng-show="maxHeight" class="alert alert-info">
-              <center>{{_('Total height')}} {{maxHeight}}
-              </center>
-            </div>
-          </div>
-
           <form ng-show="isActivePanel('piece')" class="well col-md-2">
             <h4>{{_('Piece edition')}}</h4>
             <div class="form-group">
@@ -193,7 +148,7 @@
               <input ng-model="pamount" type="number" class="form-control" placeholder="{{_('Piece amount')}}">
             </div>
             <center>
-              <button type="submit" class="btn btn-default" ng-click="setPiece()">{{_('Set piece')}}</button>
+              <button type="submit" class="btn btn-info btn-sm" ng-click="setPiece()">{{_('Set piece')}}</button>
             </center>
           </form>
 
@@ -238,7 +193,6 @@
               </tr>
             </table>
           </div>
-        </div>
 
 
 
@@ -271,6 +225,8 @@
               </tr>
             </table>
           </div>
+        </div>
+
         </div>
 
         <div class="layout well handle" ng-show="isActivePanel('layout')">

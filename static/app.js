@@ -24,7 +24,8 @@ var message = {
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
-    $scope.version = '2.0';
+    $scope.version = '2.1';
+    $scope.debug = true;
 
     $scope.maxHeight = 0;
     $scope.currentPiece = {};
@@ -160,16 +161,18 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         } else if (panelName === 'project' && !$scope.panels['project']) {
             $scope.allPanelsDisplay(false);
             $scope.panels['project'] = true;
-        } else {
+        } else if(panelName === 'edition') {
             if ($scope.currentProject) {
+                $scope.allPanelsDisplay(true);
                 $scope.panels['about'] = false;
                 $scope.panels['project'] = false;
-                $scope.panels[panelName] = !$scope.panels[panelName];
-                $scope.activePanel = panelName;
+                $scope.panels['cloud'] = false;
+                $scope.optimize();
             } else {
                 $scope.showUserMessage('No project selected', 'info');
             }
         }
+        $scope.activePanel = panelName;
     };
 
     $scope.allPanelsDisplay = function (doDisplay) {
@@ -234,6 +237,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
             } else {
                 $scope.showUserMessage('Invalid number given', message.warning);
             }
+            $scope.optimize();
         }
 
     };
