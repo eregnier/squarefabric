@@ -30,6 +30,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
     $scope.currentPiece = {};
     $scope.projects = [];
     $scope.editmode = false;
+    $scope.pamount = 1;
 
     $scope.panels = {
         piece: false,
@@ -162,6 +163,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         } else {
             if ($scope.currentProject) {
                 $scope.panels['about'] = false;
+                $scope.panels['project'] = false;
                 $scope.panels[panelName] = !$scope.panels[panelName];
                 $scope.activePanel = panelName;
             } else {
@@ -216,9 +218,19 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
             $scope.currentPiece = {};
             $scope.editmode = false;
         } else {
-            if (validSizeNumber($scope.currentPiece.h) && validSizeNumber($scope.currentPiece.w)) {
-                $scope.currentProject.pieces.push($scope.currentPiece);
+            if (validSizeNumber($scope.currentPiece.h) &&
+                validSizeNumber($scope.currentPiece.w) &&
+                validSizeNumber($scope.pamount)) {
+                for (var i=0; i<parseInt($scope.pamount); i++) {
+                    var newPiece = {
+                        w: $scope.currentPiece.w,
+                        h: $scope.currentPiece.h,
+                        name: $scope.currentPiece.name + i
+                    };
+                    $scope.currentProject.pieces.push(newPiece);
+                }
                 $scope.currentPiece = {};
+                $scope.pamount = 1;
             } else {
                 $scope.showUserMessage('Invalid number given', message.warning);
             }

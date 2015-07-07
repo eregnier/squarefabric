@@ -45,7 +45,8 @@ window.i18n = {
       "Username": "Nom d'utilisateur",
       "Password": "Mot de passe",
       "Download": "Download",
-      "Upload": "Upload"
+      "Upload": "Upload",
+      "Piece amount": "Quantité de pièces"
     },
     en: {}
 };
