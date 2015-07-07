@@ -317,47 +317,10 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
             'info'
         );
 
-        var hover = $('.rectangleHover'),
-            handle =$('.handle'),
-            padding = parseInt($('.layout').css('padding').replace('px', ''));
+        var handle = $('.handle');
 
         $scope.setDraggable(handle, handle);
 
-        $('#canvas').mousemove(function(e) {
-
-            var pcs = $scope.currentProject.pieces,
-                x = e.offsetX,
-                y = e.offsetY,
-                ctop = $('#canvas').position().top;
-
-            for(var i=0;i<pcs.length;i++) { // check whether:
-
-                var fx = pcs[i].fit.x * $scope.coefficient,
-                    fy = pcs[i].fit.y * $scope.coefficient,
-                    pw = pcs[i].w * $scope.coefficient,
-                    ph = pcs[i].h * $scope.coefficient;
-
-                if(x > fx && x < fx + pw && y > fy && y < fy + ph) {
-
-                    // Make information available to info panel
-                    $scope.hoveritem = pcs[i];
-                    $scope.$apply();
-
-                    console.log('Rectangle ' + i, pcs[i]);
-                    var nx = fx + padding;
-
-                    hover.show()
-                    .css('left', nx + 'px')
-                    .css('top', (fy + ctop) + 'px')
-                    .css('width', pw + 'px')
-                    .css('height', ph + 'px');
-
-                    break;
-                 }
-
-            }
-
-        });
         $scope.loadWorkingSpace();
     };
 
