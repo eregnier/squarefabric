@@ -46,7 +46,13 @@ window.i18n = {
       "Password": "Mot de passe",
       "Download": "Download",
       "Upload": "Upload",
-      "Piece amount": "Quantité de pièces"
-    },
+      "Piece amount": "Quantité de pièces",
+      "fake pieces": "pièces",
+      "print": "print",
+      "Edition": "Edition",
+      "Ok": "Ok",
+      "update": "update"
+
+   },
     en: {}
 };

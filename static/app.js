@@ -14,18 +14,11 @@ squarefabricApp.factory('Projects', ['$firebaseArray',
 SHOW_MESSAGE_BOX_DELAY = 4500;
 DEBUG = false;
 
-var message = {
-    valid : 'success',
-    info : 'info',
-    warning : 'warning',
-    error : 'danger',
-
-};
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
 
     $scope.version = '2.1';
-    $scope.debug = true;
+    $scope.debug = DEBUG;
 
     $scope.maxHeight = 0;
     $scope.currentPiece = {};
