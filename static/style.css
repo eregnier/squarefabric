@@ -11,15 +11,9 @@ body {
 	clear:both;
 }
 
-.rawFabric{
-	border:1px solid red;
-	padding:0px;
-	margin:0px;
-	overflow-x: auto;
-}
-
 .layout{
 	position:absolute;
+	left: 0px;
 }
 
 .rectangleHover{

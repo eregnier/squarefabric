@@ -154,8 +154,18 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         return $scope.panels[panelName];
     };
 
+    $scope.print = function () {
+        window.print();
+    };
+
     $scope.togglePanel = function (panelName) {
-        if (panelName === 'cloud') {
+        if (panelName === 'layout') {
+            $scope.allPanelsDisplay(false);
+            $scope.panels['layout'] = !$scope.panels['layout'];
+            if ($scope.panels['layout']) {
+                $scope.optimize();
+            }
+        } else if (panelName === 'cloud') {
             $scope.allPanelsDisplay(false);
             $scope.panels['cloud'] = true;
         } else if (panelName === 'project' && !$scope.panels['project']) {
@@ -167,7 +177,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
                 $scope.panels['about'] = false;
                 $scope.panels['project'] = false;
                 $scope.panels['cloud'] = false;
-                $scope.optimize();
             } else {
                 $scope.showUserMessage('No project selected', 'info');
             }
@@ -191,7 +200,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
         $scope.currentProject.pieces = [];
         $scope.currentPiece = {};
         $scope.optimize();
-        $scope.panels.layout = false;
         $scope.hoveritem = {};
         $('.rectangleHover').hide();
     };

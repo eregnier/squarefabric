@@ -50,6 +50,9 @@
               <li ng-class="{active: isActivePanel('edition')}">
                 <a ng-click="togglePanel('edition')" href="#">{{_('Edition')}}</a>
               </li>
+              <li ng-class="{active: isActivePanel('layout')}">
+                <a ng-click="togglePanel('layout')" href="#">{{_('Layout')}}</a>
+              </li>
               <li>
                 <a href="#" ng-show="currentProject.name">{{_('Current project')}} {{currentProject.name | limitTo : 15}}</a>
               </li>
@@ -74,6 +77,11 @@
               <li ng-show="debug" ng-class="pull-rigth">
                 <a ng-click="mock()" href="#" title="{{_('fake pieces')}}">
                   <span class="glyphicon glyphicon-copy"></span>
+                </a>
+              </li>
+              <li ng-show="debug" ng-class="pull-rigth">
+                <a ng-click="print()" href="#" title="{{_('print')}}">
+                  <span class="glyphicon glyphicon-print"></span>
                 </a>
               </li>
             </ul>
@@ -230,6 +238,12 @@
         </div>
 
         <div class="layout well handle" ng-show="isActivePanel('layout')">
+          <center>
+            <h3>
+              <b>{{currentProject.name}}</b>
+            </h3>
+          </center>
+          <p>{{currentProject.description}}</p>
           <div class="rectangleHover"></div>
           <canvas id="canvas"></canvas>
         </div>
