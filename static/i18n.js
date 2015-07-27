@@ -51,8 +51,8 @@ window.i18n = {
       "print": "print",
       "Edition": "Edition",
       "Ok": "Ok",
-      "update": "update"
-
+      "update": "update",
+      "Required fabric length": "Longueur de tissus requis"
    },
     en: {}
 };

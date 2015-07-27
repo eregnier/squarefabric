@@ -12,7 +12,7 @@ squarefabricApp.factory('Projects', ['$firebaseArray',
 ]);
 
 SHOW_MESSAGE_BOX_DELAY = 4500;
-DEBUG = false;
+DEBUG = true;
 
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope, Projects) {
