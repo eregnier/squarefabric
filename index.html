@@ -96,21 +96,8 @@
         </div>
       </nav>
 
-      <div class="container-fluid">
-
-        <div class="row">
-
-          <form ng-show="isActivePanel('settings')" class="well col-md-2">
-            <h4>{{_('Settings')}}</h4>
-            <div class="form-group">
-              <label>{{_('Laize')}}</label>
-              <input ng-model="laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
-            </div>
-            <center>
-              <button class="btn btn-default btn-sm" ng-click="optimize()">{{_('Ok')}}</button>
-            </center>
-          </form>
-
+      <div class="row">
+        <div class="col-md-12">
           <form ng-show="isActivePanel('cloud')" class="well col-md-4">
             <h4>{{_('Cloud data management')}}</h4>
             <p>{{_('Allow project information share between computers')}}</p>
@@ -132,27 +119,41 @@
             </center>
           </form>
 
-          <form ng-show="isActivePanel('piece')" class="well col-md-2">
-            <h4>{{_('Piece edition')}}</h4>
-            <div class="form-group">
-              <label>{{_('Width')}}</label>
-              <input ng-model="currentPiece.w" type="number" class="form-control" placeholder="{{_('Piece width')}}">
+          <form class="well col-md-2" ng-show="isActivePanel('settings')">
+
+            <div ng-show="isActivePanel('settings')" class="row">
+              <h4>{{_('Settings')}}</h4>
+              <div class="form-group">
+                <label>{{_('Laize')}}</label>
+                <input ng-model="laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
+              </div>
+              <center>
+                <button class="btn btn-default btn-sm" ng-click="optimize()">{{_('Ok')}}</button>
+              </center>
             </div>
-            <div class="form-group">
-              <label>{{_('Height')}}</label>
-              <input ng-model="currentPiece.h" type="number" class="form-control" placeholder="{{_('Piece height')}}">
+
+            <div ng-show="isActivePanel('piece')" class="row">
+              <h4>{{_('Piece edition')}}</h4>
+              <div class="form-group">
+                <label>{{_('Width')}}</label>
+                <input ng-model="currentPiece.w" type="number" class="form-control" placeholder="{{_('Piece width')}}">
+              </div>
+              <div class="form-group">
+                <label>{{_('Height')}}</label>
+                <input ng-model="currentPiece.h" type="number" class="form-control" placeholder="{{_('Piece height')}}">
+              </div>
+              <div class="form-group">
+                <label>{{_('Name')}}</label>
+                <input ng-model="currentPiece.name" type="text" class="form-control" placeholder="{{_('Piece name')}}">
+              </div>
+              <div class="form-group">
+                <label>{{_('Piece amount')}}</label>
+                <input ng-model="pamount" type="number" class="form-control" placeholder="{{_('Piece amount')}}">
+              </div>
+              <center>
+                <button type="submit" class="btn btn-info btn-sm" ng-click="setPiece()">{{_('Set piece')}}</button>
+              </center>
             </div>
-            <div class="form-group">
-              <label>{{_('Name')}}</label>
-              <input ng-model="currentPiece.name" type="text" class="form-control" placeholder="{{_('Piece name')}}">
-            </div>
-            <div class="form-group">
-              <label>{{_('Piece amount')}}</label>
-              <input ng-model="pamount" type="number" class="form-control" placeholder="{{_('Piece amount')}}">
-            </div>
-            <center>
-              <button type="submit" class="btn btn-info btn-sm" ng-click="setPiece()">{{_('Set piece')}}</button>
-            </center>
           </form>
 
           <form ng-show="isActivePanel('project')" class="well col-md-4">
@@ -229,33 +230,33 @@
             </table>
           </div>
         </div>
-
-        </div>
-
-        <div class="layout well handle" ng-show="isActivePanel('layout')">
-          <center>
-            <h3>
-              <b>{{currentProject.name}}</b>
-            </h3>
-            <p>{{_('Required fabric length')}} : <b>{{maxHeight}}</b></p>
-          </center>
-          <p>{{currentProject.description}}</p>
-          <div class="rectangleHover"></div>
-          <canvas id="canvas"></canvas>
-        </div>
-
-        <div ng-show="isActivePanel('about')" class="alert alert-info">
-            <p>
-              <img src="static/icon.png" class="logo"/>
-              {{_('Square fabric')}} by utopman V{{version}}
-            </p>
-        </div>
-
       </div>
+
+
+      <div class="layout well handle" ng-show="isActivePanel('layout')">
+        <center>
+          <h3>
+            <b>{{currentProject.name}}</b>
+          </h3>
+          <p>{{_('Required fabric length')}} : <b>{{maxHeight}}</b></p>
+        </center>
+        <p>{{currentProject.description}}</p>
+        <div class="rectangleHover"></div>
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <div ng-show="isActivePanel('about')" class="alert alert-info">
+          <p>
+            <img src="static/icon.png" class="logo"/>
+            {{_('Square fabric')}} by utopman V{{version}}
+          </p>
+      </div>
+
 
       <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
       <script type="text/javascript" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="static/bower_components/paper/dist/paper-core.min.js"></script>
       <script type="text/javascript" src="static/i18n.js"></script>
       <script type="text/javascript" src='static/firebase.js'></script>
       <script type="text/javascript" src='static/angularfire.min.js'></script>

@@ -35,7 +35,7 @@ Pm = {
   repaint: function (blocks, packer, coefficient) {
     Pm.canvas.reset(packer.root.w * coefficient, packer.root.h * coefficient);
     Pm.canvas.blocks(blocks, coefficient);
-    Pm.canvas.boundary(packer.root);
+    //Pm.canvas.boundary(packer.root);
     Pm.report(blocks, packer.root.w, packer.root.h);
   },
 
@@ -118,7 +118,7 @@ Pm = {
             block.fit.y * coefficient,
             block.w * coefficient,
             block.h * coefficient,
-            Pm.color(n),
+            Pm.colors[n % Pm.colors.length],
             block.name
           );
         }
@@ -141,19 +141,7 @@ Pm = {
 
   //---------------------------------------------------------------------------
 
-  colors: {
-    pastel:         [ "#FFF7A5", "#FFA5E0", "#A5B3FF", "#BFFFA5", "#FFCBA5" ],
-    basic:          [ "silver", "gray", "red", "maroon", "yellow", "olive", "lime", "green", "aqua", "teal", "blue", "navy", "fuchsia", "purple" ],
-    gray:           [ "#111", "#222", "#333", "#444", "#555", "#666", "#777", "#888", "#999", "#AAA", "#BBB", "#CCC", "#DDD", "#EEE" ],
-    vintage:        [ "#EFD279", "#95CBE9", "#024769", "#AFD775", "#2C5700", "#DE9D7F", "#7F9DDE", "#00572C", "#75D7AF", "#694702", "#E9CB95", "#79D2EF" ],
-    solarized:      [ "#b58900", "#cb4b16", "#dc322f", "#d33682", "#6c71c4", "#268bd2", "#2aa198", "#859900" ],
-    none:           [ "transparent" ]
-  },
-
-  color: function(n) {
-    var cols = Pm.colors['pastel'];
-    return cols[n % cols.length];
-  }
+  colors: [ "#FFF7A5", "#FFA5E0", "#A5B3FF", "#BFFFA5", "#FFCBA5" ],
 
   //---------------------------------------------------------------------------
 
