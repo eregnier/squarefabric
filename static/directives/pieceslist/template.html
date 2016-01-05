@@ -1,0 +1,30 @@
+
+<div ng-show="isActivePanel('list')" class="table-responsive">
+  <table class="table table-striped col-md-2">
+    <tr>
+      <th>{{_('Piece')}}</th>
+      <th>{{_('Width')}}</th>
+      <th>{{_('Height')}}</th>
+      <th>{{_('X')}}</th>
+      <th>{{_('Y')}}</th>
+      <th>{{_('Name')}}</th>
+      <th>{{_('Edit')}}</th>
+    </tr>
+    <tr ng-repeat="piece in currentProject.pieces">
+      <td>{{$index + 1}}</td>
+      <td>{{piece.w}}</td>
+      <td>{{piece.h}}</td>
+      <td>{{piece.fit.x}}</td>
+      <td>{{piece.fit.y}}</td>
+      <td>{{piece.name}}</td>
+      <td>
+        <button class="btn btn-default btn-sm" ng-click="updatePiece(piece)" title="{{_('update')}}">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button class="btn btn-default btn-sm" ng-click="removePiece($index)" title="{{_('remove')}}">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
