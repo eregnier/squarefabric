@@ -1,6 +1,6 @@
-<form class="well col-md-2" ng-show="isActivePanel('settings')">
+<form class="well col-md-2">
 
-  <div ng-show="isActivePanel('settings')" class="row">
+  <div class="row">
     <h4>{{_('Settings')}}</h4>
     <div class="form-group">
       <label>{{_('Laize')}}</label>
@@ -11,7 +11,7 @@
     </center>
   </div>
 
-  <div ng-show="isActivePanel('piece')" class="row">
+  <div class="row">
     <h4>{{_('Piece edition')}}</h4>
     <div class="form-group">
       <label>{{_('Width')}}</label>
@@ -35,7 +35,7 @@
   </div>
 </form>
 
-<div ng-show="isActivePanel('list')" class="table-responsive col-md-10">
+<div class="table-responsive col-md-10">
   <table class="table table-striped">
     <tr>
       <th>{{_('Piece')}}</th>

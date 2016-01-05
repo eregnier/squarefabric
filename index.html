@@ -33,7 +33,7 @@
 
           <div sfcloud ng-if="isActivePanel('cloud')" class="col-md-4 col-md-offset-4"></div>
 
-          <div sfpieceslist class="col-md-12"></div>
+          <div sfpieceslist ng-if="isActivePanel('settings')" class="col-md-12"></div>
 
           <div sfproject ng-if="isActivePanel('project')" class="col-md-12"></div>
 
