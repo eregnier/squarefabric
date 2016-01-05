@@ -136,7 +136,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         $('#canvas').width(packer.root.w * $scope.coefficient);
         Pm.repaint($scope.currentProject.pieces, packer, $scope.coefficient);
 
-        $scope.showLayout();
     };
 
     $scope.getCoefficient = function () {
