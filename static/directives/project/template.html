@@ -1,0 +1,43 @@
+<div>
+  <form class="well col-md-4">
+    <h4>{{_('Project edition')}}</h4>
+    <div ng-show="currentProject">
+      <div class="form-group">
+        <label>{{_('Project name')}}</label>
+        <input ng-model="currentProject.name" type="text" class="form-control" placeholder="{{_('Project name')}}">
+      </div>
+      <div class="form-group">
+        <label>{{_('Description')}}</label>
+        <textarea cols="20" rows="7" ng-model="currentProject.description" class="form-control" placeholder="{{_('Description')}}"></textarea>
+      </div>
+    </div>
+    <center>
+      <button type="submit" class="btn btn-primary btn-xs" ng-click="newProject()">
+        <span class="glyphicon glyphicon-list"></span>
+        {{_('New project')}}
+      </button>
+    </center>
+  </form>
+
+  <div class="col-md-8 table-responsive">
+    <table class="table table-striped col-md-2">
+      <tr>
+        <th>{{_('Name')}}</th>
+        <th>{{_('Description')}}</th>
+        <th>{{_('Actions')}}</th>
+      </tr>
+      <tr ng-repeat="project in projects">
+        <td>{{project.name}}</td>
+        <td>{{project.description | limitTo : 30}}</td>
+        <td>
+          <button class="btn btn-default btn-sm" ng-click="editProject(project)" title="{{_('edit')}}">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button class="btn btn-default btn-sm" ng-click="removeProject($index)" title="{{_('remove')}}">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -30,108 +30,13 @@
 
       <div class="row">
         <div class="col-md-12">
-          <form ng-show="isActivePanel('cloud')" class="well col-md-4">
-            <h4>{{_('Cloud data management')}}</h4>
-            <p>{{_('Allow project information share between computers')}}</p>
-            <div class="form-group">
-              <label>{{_('Username')}}</label>
-              <input ng-model="uploadUser" type="text" class="form-control" placeholder="{{_('username')}}">
-            </div>
-            <div class="form-group">
-              <label>{{_('Password')}}</label>
-              <input ng-model="uploadPassword" type="password" class="form-control" placeholder="{{_('password')}}">
-            </div>
-            <center>
-              <div class="form-group">
-                <button class="btn btn-default" ng-click="downloadProjects()">{{_('Download')}}</button>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-default" ng-click="uploadProjects()">{{_('Upload')}}</button>
-              </div>
-            </center>
-          </form>
 
-          <form class="well col-md-2" ng-show="isActivePanel('settings')">
+          <div sfcloud ng-if="isActivePanel('cloud')" class="col-md-4 col-md-offset-4"></div>
 
-            <div ng-show="isActivePanel('settings')" class="row">
-              <h4>{{_('Settings')}}</h4>
-              <div class="form-group">
-                <label>{{_('Laize')}}</label>
-                <input ng-model="laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
-              </div>
-              <center>
-                <button class="btn btn-default btn-sm" ng-click="optimize()">{{_('Ok')}}</button>
-              </center>
-            </div>
+          <div sfpieceslist class="col-md-12"></div>
 
-            <div ng-show="isActivePanel('piece')" class="row">
-              <h4>{{_('Piece edition')}}</h4>
-              <div class="form-group">
-                <label>{{_('Width')}}</label>
-                <input ng-model="currentPiece.w" type="number" class="form-control" placeholder="{{_('Piece width')}}">
-              </div>
-              <div class="form-group">
-                <label>{{_('Height')}}</label>
-                <input ng-model="currentPiece.h" type="number" class="form-control" placeholder="{{_('Piece height')}}">
-              </div>
-              <div class="form-group">
-                <label>{{_('Name')}}</label>
-                <input ng-model="currentPiece.name" type="text" class="form-control" placeholder="{{_('Piece name')}}">
-              </div>
-              <div class="form-group">
-                <label>{{_('Piece amount')}}</label>
-                <input ng-model="pamount" type="number" class="form-control" placeholder="{{_('Piece amount')}}">
-              </div>
-              <center>
-                <button type="submit" class="btn btn-info btn-sm" ng-click="setPiece()">{{_('Set piece')}}</button>
-              </center>
-            </div>
-          </form>
+          <div sfproject ng-if="isActivePanel('project')" class="col-md-12"></div>
 
-          <form ng-show="isActivePanel('project')" class="well col-md-4">
-            <h4>{{_('Project edition')}}</h4>
-            <div ng-show="currentProject">
-              <div class="form-group">
-                <label>{{_('Project name')}}</label>
-                <input ng-model="currentProject.name" type="text" class="form-control" placeholder="{{_('Project name')}}">
-              </div>
-              <div class="form-group">
-                <label>{{_('Description')}}</label>
-                <textarea cols="20" rows="7" ng-model="currentProject.description" class="form-control" placeholder="{{_('Description')}}"></textarea>
-              </div>
-            </div>
-            <center>
-              <button type="submit" class="btn btn-primary btn-xs" ng-click="newProject()">
-                <span class="glyphicon glyphicon-list"></span>
-                {{_('New project')}}
-              </button>
-            </center>
-          </form>
-
-          <div ng-show="isActivePanel('project')" class="table-responsive">
-            <table class="table table-striped col-md-2">
-              <tr>
-                <th>{{_('Name')}}</th>
-                <th>{{_('Description')}}</th>
-                <th>{{_('Actions')}}</th>
-              </tr>
-              <tr ng-repeat="project in projects">
-                <td>{{project.name}}</td>
-                <td>{{project.description | limitTo : 30}}</td>
-                <td>
-                  <button class="btn btn-default btn-sm" ng-click="editProject(project)" title="{{_('edit')}}">
-                    <span class="glyphicon glyphicon-edit"></span>
-                  </button>
-                  <button class="btn btn-default btn-sm" ng-click="removeProject($index)" title="{{_('remove')}}">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </button>
-                </td>
-              </tr>
-            </table>
-          </div>
-
-
-          <div sfpieceslist></div>
         </div>
       </div>
 
@@ -168,6 +73,8 @@
       <script type="text/javascript" src="static/app.js"></script>
       <script type="text/javascript" src="static/directives/menu/directive.js"></script>
       <script type="text/javascript" src="static/directives/pieceslist/directive.js"></script>
+      <script type="text/javascript" src="static/directives/cloud/directive.js"></script>
+      <script type="text/javascript" src="static/directives/project/directive.js"></script>
 
     </body>
 </html>
