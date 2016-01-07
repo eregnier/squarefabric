@@ -26,7 +26,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     $scope.userAlertType = 'alert-success';
     $scope.laize = 140;
 
-    $scope.$on('setMaxHeight', function (height) {
+    $scope.$on('setMaxHeight', function (e, height) {
         $scope.maxHeight = height;
     })
 
@@ -37,18 +37,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         } else {
             i18ntodo[word] = '';
             return word;
-        }
-    };
-
-    $scope.mock = function(){
-        $scope.currentProject.pieces = [];
-        $scope.editmode = false;
-        var r = function () { return parseInt(Math.random()*45+5);};
-        for (var i=0; i<50; i++) {
-            $scope.currentPiece.h = r();
-            $scope.currentPiece.w = r();
-            $scope.currentPiece.name = r() + '';
-            $scope.setPiece();
         }
     };
 
