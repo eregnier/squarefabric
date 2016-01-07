@@ -37,29 +37,17 @@
 
           <div sfproject ng-if="isActivePanel('project')" class="col-md-12"></div>
 
+          <div sflayout ng-if="isActivePanel('layout')"></div>
+
+          <div ng-show="isActivePanel('about')" class="alert alert-info">
+              <p>
+                <img src="static/icon.png" class="logo"/>
+                {{_('Square fabric')}} by utopman V{{version}}
+              </p>
+          </div>
+
         </div>
       </div>
-
-
-      <div class="layout well handle" ng-show="isActivePanel('layout')">
-        <center>
-          <h3>
-            <b>{{currentProject.name}}</b>
-          </h3>
-          <p>{{_('Required fabric length')}} : <b>{{maxHeight}}</b></p>
-        </center>
-        <p>{{currentProject.description}}</p>
-        <div class="rectangleHover"></div>
-        <canvas id="canvas"></canvas>
-      </div>
-
-      <div ng-show="isActivePanel('about')" class="alert alert-info">
-          <p>
-            <img src="static/icon.png" class="logo"/>
-            {{_('Square fabric')}} by utopman V{{version}}
-          </p>
-      </div>
-
 
       <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
@@ -69,12 +57,12 @@
       <script type="text/javascript" src='static/firebase.js'></script>
       <script type="text/javascript" src='static/angularfire.min.js'></script>
       <script type="text/javascript" src="bin-packing/js/packer.js"></script>
-      <script type="text/javascript" src="static/packingmanager.js"></script>
       <script type="text/javascript" src="static/app.js"></script>
       <script type="text/javascript" src="static/directives/menu/directive.js"></script>
       <script type="text/javascript" src="static/directives/pieceslist/directive.js"></script>
       <script type="text/javascript" src="static/directives/cloud/directive.js"></script>
       <script type="text/javascript" src="static/directives/project/directive.js"></script>
+      <script type="text/javascript" src="static/directives/layout/directive.js"></script>
 
     </body>
 </html>

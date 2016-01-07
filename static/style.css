@@ -2,6 +2,10 @@ body {
   padding-top: 60px;
 }
 
+#canvas{
+	border:1px solid #999;
+}
+
 .showRect{
 	border:1px solid #333;
 	position:absolute;
@@ -11,8 +15,9 @@ body {
 	clear:both;
 }
 
-.layout{
-	width: 100%;
+.layout #canvas{
+	width: 210mm;
+    height: 297mm;
 }
 
 .rectangleHover{

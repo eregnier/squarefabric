@@ -26,6 +26,9 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     $scope.userAlertType = 'alert-success';
     $scope.laize = 140;
 
+    $scope.$on('setMaxHeight', function (height) {
+        $scope.maxHeight = height;
+    })
 
     $scope._ = function (word) {
         var translation = i18n[$scope.language][word];
@@ -58,25 +61,11 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
-        if (panelName === 'layout') {
+        if ($scope.currentProject) {
             $scope.allPanelsDisplay(false);
-            $scope.panels['layout'] = true;
-            if ($scope.panels['layout']) {
-                $scope.optimize();
-            }
-        } else if (panelName === 'cloud') {
-            $scope.allPanelsDisplay(false);
-            $scope.panels['cloud'] = true;
-        } else if (panelName === 'project') {
-            $scope.allPanelsDisplay(false);
-            $scope.panels['project'] = true;
-        } else if(panelName === 'edition') {
-            if ($scope.currentProject) {
-                $scope.allPanelsDisplay(false);
-                $scope.panels['settings'] = true;
-            } else {
-                $scope.$broadcast('showUserMessage', 'No project selected', 'info');
-            }
+            $scope.panels[panelName] = true;
+        } else {
+            $scope.$broadcast('showUserMessage', 'No project selected', 'info');
         }
         $scope.activePanel = panelName;
     };
@@ -96,7 +85,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     $scope.clear = function () {
         $scope.currentProject.pieces = [];
         $scope.currentPiece = {};
-        $scope.optimize();
         $scope.hoveritem = {};
         $('.rectangleHover').hide();
     };
@@ -121,22 +109,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         layout.css('top', y + 'px');
     };
 
-    $scope.optimize = function () {
-        var packer = Pm.optimize($scope.currentProject.pieces, $scope.laize, 1000);
-
-        $scope.maxHeight = 0;
-        for (var i=0; i<$scope.currentProject.pieces.length; i++) {
-            var p = $scope.currentProject.pieces[i];
-            var max = p.fit.y + p.h;
-            if (max > $scope.maxHeight) {
-                $scope.maxHeight = max;
-            }
-        }
-        packer.root.h = $scope.maxHeight;
-        $('#canvas').width(packer.root.w * $scope.coefficient);
-        Pm.repaint($scope.currentProject.pieces, packer, $scope.coefficient);
-
-    };
 
     $scope.getCoefficient = function () {
         var coefficient = window.innerWidth / $('#canvas').width();

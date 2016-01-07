@@ -3,6 +3,58 @@ angular.module('squarefabricApp').directive('sfpieceslist', function() {
         templateUrl: 'static/directives/pieceslist/template.html',
         link : function (scope, element, attrs) {
 
+
+            var sort= {
+
+                w       : function (a,b) { return b.w - a.w; },
+                h       : function (a,b) { return b.h - a.h; },
+                height  : function (a,b) { return sort.msort(a, b, ['h', 'w']);               },
+                msort: function(a, b, criteria) {
+                  var diff;
+                  for (var i=0, j=criteria.length ; i<j; i++) {
+                    diff = sort[criteria[i]](a,b);
+                    if (diff != 0)
+                      return diff;
+                  }
+                  return 0;
+                },
+            };
+
+
+            scope.getMaxHeight = function (pieces) {
+                var maxH = 0;
+                for (var i=0; i<pieces.length; i++) {
+                    var p = pieces[i];
+                    var max = p.fit.y + p.h;
+                    if (max > maxH) {
+                        maxH = max;
+                    }
+                }
+                return maxH;
+            };
+
+
+            scope.optimize = function (pieces, laize) {
+
+                var packer = new Packer(laize, 1000);
+
+                pieces.sort(sort['height']);
+                packer.fit(pieces);
+
+                var maxH = 0;
+                for (var i=0; i<pieces.length; i++) {
+                    var p = pieces[i];
+                    var max = p.fit.y + p.h;
+                    if (max > maxH) {
+                        maxH = max;
+                    }
+                }
+
+                packer.root.h = maxH;
+                scope.$broadcast('setMaxHeight', maxH);
+
+            };
+
 		    scope.removePiece = function (index) {
 		        scope.$parent.currentProject.pieces.splice(index, 1);
 		    };
@@ -38,7 +90,7 @@ angular.module('squarefabricApp').directive('sfpieceslist', function() {
 		            } else {
 		                scope.showUserMessage('Invalid number given', message.warning);
 		            }
-		            scope.optimize();
+		            scope.optimize(scope.$parent.currentProject.pieces, scope.$parent.laize);
 		        }
 
 		    };
