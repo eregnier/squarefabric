@@ -11,7 +11,8 @@ angular.module('squarefabricApp').directive('sfproject', function() {
                 scope.$parent.currentProject = {
                     pieces: [],
                     laize: 140,
-                    createdate: +new Date()
+                    createdate: +new Date(),
+                    updatedate: +new Date()
                 };
                 scope.$parent.projects.push(scope.currentProject);
             };
