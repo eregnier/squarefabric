@@ -5,7 +5,7 @@
     <h4>{{_('Settings')}}</h4>
     <div class="form-group">
       <label>{{_('Laize')}}</label>
-      <input ng-model="$parent.laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
+      <input ng-model="$parent.currentProject.laize" type="number" class="form-control" placeholder="{{_('Laize')}}">
     </div>
     <center>
       <button class="btn btn-default btn-sm" ng-click="runOptimize()">{{_('Apply')}}</button>

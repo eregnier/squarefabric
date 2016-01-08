@@ -44,13 +44,14 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
                 paper.view.draw();
             };
 
-            var canvas = element.find('canvas');
-            scope.coefficient = canvas.width() / scope.$parent.laize;
+            var laize = scope.$parent.currentProject.laize,
+                canvas = element.find('canvas');
+            scope.coefficient = canvas.width() / laize;
             paper.setup(canvas[0]);
 
-            var packer = new Packer(scope.$parent.laize, 1000);
+            var packer = new Packer(laize, 1000);
             scope.repaint(scope.$parent.currentProject.pieces);
-            optimize..optimize(scope.$parent.currentProject.pieces, scope.$parent.laize);
+            optimize.optimize(scope.$parent.currentProject.pieces, laize);
         }
 
     }

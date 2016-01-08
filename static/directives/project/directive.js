@@ -4,11 +4,14 @@ angular.module('squarefabricApp').directive('sfproject', function() {
         link : function (scope, element, attrs) {
 
             scope.editProject = function (project) {
+                project.updatedate = + new Date();
                 scope.$parent.currentProject = project;
             };
             scope.newProject = function () {
                 scope.$parent.currentProject = {
-                    pieces: []
+                    pieces: [],
+                    laize: 140,
+                    createdate: +new Date()
                 };
                 scope.$parent.projects.push(scope.currentProject);
             };

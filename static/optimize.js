@@ -1,10 +1,10 @@
-angular.module('squarefabricApp').service('optimize', function(usersAdapter, $location) {
+angular.module('squarefabricApp').service('optimize', function($rootScope) {
 
-    this.sort = {
+    var sort = {
 
         w       : function (a,b) { return b.w - a.w; },
         h       : function (a,b) { return b.h - a.h; },
-        height  : function (a,b) { return sort.msort(a, b, ['h', 'w']);               },
+        height  : function (a,b) { return sort.msort(a, b, ['h', 'w']);},
         msort: function(a, b, criteria) {
           var diff;
           for (var i=0, j=criteria.length ; i<j; i++) {
@@ -14,14 +14,14 @@ angular.module('squarefabricApp').service('optimize', function(usersAdapter, $lo
           }
           return 0;
         },
-    },
+    };
 
 
     this.optimize = function (pieces, laize) {
 
         var packer = new Packer(laize, 1000);
 
-        pieces.sort(this.sort['height']);
+        pieces.sort(sort['height']);
         packer.fit(pieces);
 
         var maxH = 0;
@@ -34,9 +34,8 @@ angular.module('squarefabricApp').service('optimize', function(usersAdapter, $lo
         }
 
         packer.root.h = maxH;
-        scope.$parent.$broadcast('setMaxHeight', maxH);
+        $rootScope.$broadcast('setMaxHeight', maxH);
 
-    },
-
+    };
 
 });

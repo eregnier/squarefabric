@@ -50,12 +50,12 @@ angular.module('squarefabricApp').directive('sfpieceslist', function(optimize) {
                     } else {
                         scope.showUserMessage('Invalid number given', 'warning');
                     }
-                    optimize.optimize(scope.$parent.currentProject.pieces, scope.$parent.laize);
+                    optimize.optimize(scope.$parent.currentProject.pieces, scope.$parent.currentProject.laize);
                 }
 
             };
 
-            optimize..optimize(scope.$parent.currentProject.pieces, scope.$parent.laize);
+            optimize.optimize(scope.$parent.currentProject.pieces, scope.$parent.currentProject.laize);
         }
     }
 });

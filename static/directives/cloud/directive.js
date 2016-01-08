@@ -23,9 +23,9 @@ angular.module('squarefabricApp').directive('sfcloud', function(Projects) {
             };
 
             scope.uploadProjects = function () {
-
+                var len = scope.$parent.projects.length;
                 if(scope.checkUserInputs()) {
-                    if(scope.projects.length) {
+                    if(len) {
                         var fireprojects = Projects(scope.uploadUser, scope.uploadPassword);
 
                         //clear remote data
@@ -33,10 +33,9 @@ angular.module('squarefabricApp').directive('sfcloud', function(Projects) {
                             fireprojects.$remove(project);
                         });
 
-                        var length = scope.projects.length;
                         //add local data to remote
-                        for(var i=0; i<length; i++) {
-                            fireprojects.$add(scope.projects[i]);
+                        for(var i=0; i<len; i++) {
+                            fireprojects.$add(scope.$parent.projects[i]);
                         }
                        scope.showUserMessage('Upload complete', 'success');
                     } else {
@@ -47,18 +46,20 @@ angular.module('squarefabricApp').directive('sfcloud', function(Projects) {
 
             scope.downloadProjects = function () {
                 if(scope.checkUserInputs()) {
+                    scope.showUserMessage('Loading, please wait', 'info');
+
                     var fireprojects = Projects(scope.uploadUser, scope.uploadPassword);
 
                     //clear local data
-                    scope.projects = [];
+                    scope.$parent.projects = [];
 
                     //add remote data to local content
                     fireprojects.$loaded(function (data) {
                         data.forEach(function (project) {
-                            scope.projects.push(project);
+                            scope.$parent.projects.push(project);
                         });
+                        scope.showUserMessage('Download complete', 'success');
                     });
-                    scope.showUserMessage('Download complete', 'success');
 
                 }
             };

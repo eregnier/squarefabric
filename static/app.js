@@ -4,7 +4,7 @@ var DEBUG = true;
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
-    $scope.version = '2.1';
+    $scope.version = '3.0';
     $scope.debug = DEBUG;
 
     $scope.maxHeight = 0;
@@ -24,7 +24,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
     $scope.userMessage = '';
     $scope.userAlertType = 'alert-success';
-    $scope.laize = 140;
 
     $scope.$on('setMaxHeight', function (e, height) {
         $scope.maxHeight = height;
@@ -49,7 +48,10 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
-        if ($scope.currentProject) {
+
+        var openPanels = ['cloud', 'project'];
+
+        if ($scope.currentProject || openPanels.indexOf(panelName) !== -1) {
             $scope.allPanelsDisplay(false);
             $scope.panels[panelName] = true;
         } else {
