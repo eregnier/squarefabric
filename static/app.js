@@ -1,4 +1,4 @@
-var squarefabricApp = angular.module('squarefabricApp', ['firebase']);
+var squarefabricApp = angular.module('squarefabricApp', ['firebase', '$compileProvider']);
 
 var DEBUG = true;
 
