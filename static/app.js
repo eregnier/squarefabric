@@ -1,4 +1,8 @@
-var squarefabricApp = angular.module('squarefabricApp', ['firebase', '$compileProvider']);
+var squarefabricApp = angular.module('squarefabricApp', ['firebase']);
+
+squarefabricApp.config(function($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|blob):/);
+});
 
 var DEBUG = true;
 
