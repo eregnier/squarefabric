@@ -1,0 +1,4 @@
+<button class="btn" ng-class="{'btn-primary': !uploadComplete, 'btn-success': uploadComplete}" ng-click="upload()">
+	{{_('Load')}} <i ng-show="!loading" class="glyphicon glyphicon-upload"></i>
+</button>
+<input style="display:block;height:0;width:0;" id="upload" type="file"/>
