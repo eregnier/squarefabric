@@ -13,10 +13,9 @@ angular.module('squarefabricApp').directive('sfupload', function(fileReader, $ti
         uploadInput.change(function(e) {
             console.log('upload input change');
             scope.loading = true;
-            console.log($(this).val());
             scope.file = (e.srcElement || e.target).files[0];
             scope.filename = scope.file.name;
-            fileReader.readAsDataUrl(scope.file, scope).then(
+            fileReader.readAsText(scope.file, scope).then(
                 function(result) {
                     scope.onFileReady(result);
                 }
@@ -27,29 +26,13 @@ angular.module('squarefabricApp').directive('sfupload', function(fileReader, $ti
         scope.onFileReady = function (fileContent) {
 
             console.log('file load complete');
-            console.log(fileContent);
-            /*
-            fileAdapter.put(
-                'image',
-                {
-                    'fileContent': fileContent,
-                    'fileName': scope.filename,
-                }
-            ).success(
-                function (data) {
-                    if (data.success) {
-                        scope.imageurl = '/thumb/' + data.data.filename;
-                        scope.content = data.data.filename;
-                    }
-                    scope.loading = false;
-                    scope.uploadComplete = true;
-                    console.log('file upload complete');
-                    $timeout(function () {
-                        scope.uploadComplete = false;
-                    }, 2000);
-                }
-            );
-            */
+            var payload = JSON.parse(fileContent);
+            scope.$parent.projects = payload.projects;
+            scope.loading = false;
+            scope.uploadComplete = true;
+            $timeout(function () {
+                scope.uploadComplete = false;
+            }, 2000);
         };
 
     }

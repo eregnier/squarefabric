@@ -1,67 +1,42 @@
 var db = 'https://blistering-fire-6579.firebaseio.com/';
 
-squarefabricApp.factory('Projects', ['$firebaseArray',
-  function($firebaseArray) {
-    return function(user, password) {
-      var ref = new Firebase(db + 'squarefabric/projects/' + user + '/' + password);
-      return $firebaseArray(ref);
-    };
-  }
-]);
-
-
-angular.module('squarefabricApp').directive('sfcloud', function(Projects) {
+angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject) {
     return {
         templateUrl: 'static/directives/cloud/template.html',
         link : function (scope, element, attrs) {
-            scope.checkUserInputs = function () {
-                if (scope.uploadUser && scope.uploadPassword) {
-                    return true;
+
+            scope.getRef = function () {
+                return new Firebase(db + 'squarefabric/projects/' + scope.uploadUser + '/' + scope.uploadPassword);
+            };
+
+            scope.credentials = function () {
+                if(!scope.uploadUser || !scope.uploadPassword) {
+                    scope.$parent.$broadcast('showUserMessage', 'Missing user and passkey', 'warning');
+                    return false;
                 } else {
-                    scope.showUserMessage('User information error', 'warning');
+                    return true;
                 }
             };
 
             scope.uploadProjects = function () {
-                var len = scope.$parent.projects.length;
-                if(scope.checkUserInputs()) {
-                    if(len) {
-                        var fireprojects = Projects(scope.uploadUser, scope.uploadPassword);
-
-                        //clear remote data
-                        fireprojects.forEach(function (project) {
-                            fireprojects.$remove(project);
-                        });
-
-                        //add local data to remote
-                        for(var i=0; i<len; i++) {
-                            fireprojects.$add(scope.$parent.projects[i]);
-                        }
-                       scope.showUserMessage('Upload complete', 'success');
-                    } else {
-                        scope.showUserMessage('Nothing to upload', 'warning');
-                    }
+                if (scope.credentials() && scope.$parent.projects) {
+                    var ref = scope.getRef();
+                    ref.set(JSON.stringify({
+                        projects: scope.$parent.projects
+                    }));
+                    scope.$parent.$broadcast('showUserMessage', 'Project saved', 'info');
                 }
             };
 
             scope.downloadProjects = function () {
-                if(scope.checkUserInputs()) {
-                    scope.showUserMessage('Loading, please wait', 'info');
-
-                    var fireprojects = Projects(scope.uploadUser, scope.uploadPassword);
-
-                    //clear local data
-                    scope.$parent.projects = [];
-
-                    //add remote data to local content
-                    fireprojects.$loaded(function (data) {
-                        data.forEach(function (project) {
-                            scope.$parent.projects.push(project);
-                        });
-                        scope.showUserMessage('Download complete', 'success');
+                if (scope.credentials()) {
+                    scope.getRef().on('value', function(snapshot) {
+                        var value = JSON.parse(snapshot.val());
+                        scope.$parent.projects = value.projects;
+                        scope.$parent.$broadcast('showUserMessage', 'Project loaded', 'info');
                     });
-
                 }
+
             };
 
         }

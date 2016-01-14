@@ -6,8 +6,16 @@ angular.module('squarefabricApp').directive('sfmenu', function() {
             var SHOW_MESSAGE_BOX_DELAY = 2500;
 
             scope.saveWorkingSpace = function() {
-                debugger;
-                var projects = JSON.stringify(scope.projects);
+                var projects = [];
+                //filter empty projects
+                for (var i=0, j=scope.projects.length; i<j; i++) {
+                    var p = scope.projects[i];
+                    if(p.name && p.description) {
+                        p.updatedate = + new Date();
+                        projects.push(p);
+                    }
+                }
+                var projects = JSON.stringify(projects);
                 localStorage.setItem('projects', projects);
             };
 
