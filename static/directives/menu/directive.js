@@ -12,6 +12,9 @@ angular.module('squarefabricApp').directive('sfmenu', function() {
                     var p = scope.projects[i];
                     if(p.name && p.description) {
                         p.updatedate = + new Date();
+                        if (p.laize === undefined) {
+                            p.laize = 140;
+                        }
                         projects.push(p);
                     }
                 }
