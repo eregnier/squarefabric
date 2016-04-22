@@ -40,7 +40,7 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
                         var text = new paper.PointText(
                             new paper.Point(block.fit.x * coeff + 3, (block.fit.y + block.h / 2) * coeff)
                         );
-                        text.content = block.w + ' x ' + block.h + ' ';
+                        text.content = 'H : ' + block.h + ' x W : ' + block.w ;
                         text.fillColor = '#555555';
 
 

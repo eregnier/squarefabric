@@ -7,12 +7,13 @@ angular.module('squarefabricApp').directive('sfproject', function() {
                 project.updatedate = + new Date();
                 scope.$parent.currentProject = project;
             };
+
             scope.newProject = function () {
                 scope.$parent.currentProject = {
                     pieces: [],
                     laize: 140,
                     createdate: +new Date(),
-                    updatedate: +new Date()
+                    updatedate: +new Date(),
                 };
                 scope.$parent.projects.push(scope.currentProject);
             };

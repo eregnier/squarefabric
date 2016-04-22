@@ -41,7 +41,7 @@ angular.module('squarefabricApp').directive('sfpieceslist', function(optimize) {
                             var newPiece = {
                                 w: scope.currentPiece.w,
                                 h: scope.currentPiece.h,
-                                name: scope.currentPiece.name + i
+                                name: scope.currentPiece.name + ' ' +  (i + 1)
                             };
                             scope.$parent.currentProject.pieces.push(newPiece);
                         }

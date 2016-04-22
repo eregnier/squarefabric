@@ -21,10 +21,10 @@ angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject)
             scope.uploadProjects = function () {
                 if (scope.credentials() && scope.$parent.projects) {
                     var ref = scope.getRef();
-                    ref.set(JSON.stringify({
-                        projects: scope.$parent.projects
+                    ref.set(angular.toJson({
+                        projects: serializeProjects(scope.$parent.projects)
                     }));
-                    scope.$parent.$broadcast('showUserMessage', 'Project saved', 'info');
+                    scope.$parent.$broadcast('showUserMessage', 'Projects saved', 'info');
                 }
             };
 
@@ -33,7 +33,7 @@ angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject)
                     scope.getRef().on('value', function(snapshot) {
                         var value = JSON.parse(snapshot.val());
                         scope.$parent.projects = value.projects;
-                        scope.$parent.$broadcast('showUserMessage', 'Project loaded', 'info');
+                        scope.$parent.$broadcast('showUserMessage', 'Projects loaded', 'info');
                     });
                 }
 
