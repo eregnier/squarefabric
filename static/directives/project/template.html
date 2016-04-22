@@ -46,7 +46,7 @@
         <th>{{_('Update')}}</th>
         <th>{{_('Actions')}}</th>
       </tr>
-      <tr ng-repeat="project in projects | orderBy: 'name'">
+      <tr ng-repeat="project in projects | orderBy: 'name' | filter: projectSearch">
         <td>{{project.name}}</td>
         <td>{{project.description | limitTo : 30}}</td>
         <td>{{project.createdate | date: "short"}}</td>
