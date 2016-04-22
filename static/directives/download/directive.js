@@ -8,7 +8,7 @@ angular.module('squarefabricApp').directive('sfdownload', function() {
                 version: '3.0',
                 projects: scope.$parent.projects
             }
-            var blob = new Blob([ JSON.stringify(payload) ], { "type" : "application/json" });
+            var blob = new Blob([ angular.toJson(payload) ], { "type" : "application/json" });
             window.URL = window.URL || window.webkitURL;
             scope.href = window.URL.createObjectURL(blob);
 
