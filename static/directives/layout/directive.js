@@ -11,6 +11,11 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
                     coeff = scope.coefficient,
                     colors = [ "#FFF7A5", "#FFA5E0", "#A5B3FF", "#BFFFA5", "#FFCBA5" ];
 
+                //window.$context = element.find('canvas')[0].getContext('2d');
+                element.find('canvas').attr('height', scope.coefficient * scope.maxHeight);
+                //element.find('canvas')[0].getContext('2d').innerHeight = scope.maxHeight;
+                //element.find('canvas').height(scope.coefficient * scope.maxHeight);
+
                 for (var n = 0 ; n < blocks.length ; n++) {
                     block = blocks[n];
                     if (block.fit) {
@@ -50,8 +55,8 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
             paper.setup(canvas[0]);
 
             var packer = new Packer(laize, 1000);
-            scope.repaint(scope.$parent.currentProject.pieces);
             optimize.optimize(scope.$parent.currentProject.pieces, laize);
+            scope.repaint(scope.$parent.currentProject.pieces);
         }
 
     }
