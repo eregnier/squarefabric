@@ -13,7 +13,10 @@ function serializeProjects(appProjects) {
     var projects = [];
     for(var i=0, j=appProjects.length; i<j;  i++) {
         var project = appProjects[i];
-        if (project !== undefined && project !== null) {
+        if (project !== undefined && project !== null && project.name !== undefined) {
+            if (project.laize === undefined) {
+                project.laize = 140;
+            }
             projects.push({
                 'name': project.name,
                 'createdate': project.createdate,
