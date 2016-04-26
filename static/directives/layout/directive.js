@@ -30,17 +30,10 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
                         path.fillColor = colors[n % colors.length];
                         scope.rectangles.push(path);
 
-
                         var text = new paper.PointText(
-                            new paper.Point(block.fit.x * coeff + 3, (block.fit.y + 1)  * coeff + block.h / 2)
+                            new paper.Point(block.fit.x * coeff + 3, (block.fit.y + block.h / 2) * coeff - 15)
                         );
-                        text.content = block.name;
-                        text.fillColor = '#555555';
-
-                        var text = new paper.PointText(
-                            new paper.Point(block.fit.x * coeff + 3, (block.fit.y + block.h / 2) * coeff)
-                        );
-                        text.content = 'H : ' + block.h + ' x W : ' + block.w ;
+                        text.content = block.name + '\nH : ' + block.h + '\nL : ' + block.w ;
                         text.fillColor = '#555555';
 
 
