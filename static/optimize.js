@@ -19,7 +19,7 @@ angular.module('squarefabricApp').service('optimize', function($rootScope) {
 
     this.optimize = function (pieces, laize) {
 
-        var packer = new Packer(laize, 1000);
+        var packer = new Packer(laize, 100000);
 
         pieces.sort(sort['height']);
         packer.fit(pieces);

@@ -15,6 +15,6 @@ Bugfix
 
 - [X] les mesures des pieces (ajouter H et L)
 
-- [ ] la supression des pieces qui rate (defois)
+- [X] la supression des pieces qui rate (defois)
 
 

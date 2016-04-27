@@ -18,8 +18,9 @@ angular.module('squarefabricApp').directive('sfproject', function() {
                 scope.$parent.projects.push(scope.currentProject);
             };
 
-            scope.removeProject = function (index) {
+            scope.removeProject = function (project) {
                 if(confirm(scope._('Remove project ?'))) {
+                    var index = scope.$parent.projects.indexOf(project);
                     scope.$parent.projects.splice(index, 1);
                     scope.$parent.currentProject = undefined;
                 }

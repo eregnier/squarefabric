@@ -15,7 +15,8 @@ angular.module('squarefabricApp').directive('sfpieceslist', function(optimize) {
                 }
             };
 
-            scope.removePiece = function (index) {
+            scope.removePiece = function (piece) {
+                var index = scope.$parent.currentProject.pieces.indexOf(piece);
                 scope.$parent.currentProject.pieces.splice(index, 1);
             };
 
