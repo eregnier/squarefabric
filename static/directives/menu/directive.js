@@ -1,12 +1,12 @@
-angular.module('squarefabricApp').directive('sfmenu', function() {
+angular.module('squarefabricApp').directive('sfmenu', function($rootScope) {
     return {
         templateUrl: 'static/directives/menu/template.html',
         link : function (scope, element, attrs) {
 
-            var SHOW_MESSAGE_BOX_DELAY = 2500;
-
             scope.saveWorkingSpace = function() {
                 localStorage.setItem('projects', angular.toJson(serializeProjects(scope.projects)));
+                console.log('saved');
+                $rootScope.$broadcast('showUserMessage', scope._('Projects local save complete.'), 'info');
             };
 
 
@@ -17,32 +17,9 @@ angular.module('squarefabricApp').directive('sfmenu', function() {
                         scope.projects = projects;
                     }
                 } catch (err) {
-                    scope.showUserMessage('Unable to load previous work, sorry', 'danger');
+                    scope.showUserMessage(scope._('Unable to load previous work, sorry'), 'danger');
                 }
             };
-
-            scope.showUserMessage = function (message, level) {
-                console.log(message);
-
-                scope.userMessage = scope._(message);
-                scope.userAlertType = 'alert-' + level;
-                $('#alertbox').slideDown(500);
-
-                setTimeout(function () {
-                    $('#alertbox').slideUp(500);
-                    scope.userMessage = '';
-                },SHOW_MESSAGE_BOX_DELAY);
-            };
-
-            scope.$on('showUserMessage', function (event, message, level) {
-                scope.showUserMessage(message, level);
-            });
-
-            scope.$broadcast(
-                'showUserMessage',
-                'Tip: save often your work with the save button in the top bar.',
-                'info'
-            );
 
             scope.loadWorkingSpace();
 

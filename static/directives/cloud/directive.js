@@ -1,6 +1,6 @@
 var db = 'https://blistering-fire-6579.firebaseio.com/';
 
-angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject) {
+angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject, $rootScope) {
     return {
         templateUrl: 'static/directives/cloud/template.html',
         link : function (scope, element, attrs) {
@@ -11,7 +11,7 @@ angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject)
 
             scope.credentials = function () {
                 if(!scope.uploadUser || !scope.uploadPassword) {
-                    scope.$parent.$broadcast('showUserMessage', 'Missing user and passkey', 'warning');
+                    $rootScope.$broadcast('showUserMessage', 'Missing user and/or passkey', 'warning');
                     return false;
                 } else {
                     return true;
@@ -24,7 +24,7 @@ angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject)
                     ref.set(angular.toJson({
                         projects: serializeProjects(scope.$parent.projects)
                     }));
-                    scope.$parent.$broadcast('showUserMessage', 'Projects saved', 'info');
+                    $rootScope.$broadcast('showUserMessage', 'Projects saved on the cloud', 'info');
                 }
             };
 
@@ -33,7 +33,7 @@ angular.module('squarefabricApp').directive('sfcloud', function($firebaseObject)
                     scope.getRef().on('value', function(snapshot) {
                         var value = JSON.parse(snapshot.val());
                         scope.$parent.projects = value.projects;
-                        scope.$parent.$broadcast('showUserMessage', 'Projects loaded', 'info');
+                        $rootScope.$broadcast('showUserMessage', 'Projects loaded from the cloud', 'info');
                     });
                 }
 

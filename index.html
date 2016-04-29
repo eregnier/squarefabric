@@ -14,40 +14,28 @@
 
     </head>
 
-    <body ng-controller="SquarefabricCtrl">
-
-      <div class="container">
-        <div id="alertbox" class="alert {{userAlertType}}" ng-show="userMessage !== ''" role="alert">
-          <center>
-            <b>
-              {{userMessage}}
-            </b>
-          </center>
-        </div>
-      </div>
+    <body class="container-fluid" ng-controller="SquarefabricCtrl">
 
       <div sfmenu></div>
 
-      <div class="row">
-        <div class="col-md-12">
+      <br/>
 
-          <div sfcloud ng-if="isActivePanel('cloud')" class="col-md-4 col-md-offset-4"></div>
+      <div sfcloud ng-if="isActivePanel('cloud')" class="col-md-4 col-md-offset-4"></div>
 
-          <div sfpieceslist ng-if="isActivePanel('settings')" class="col-md-12"></div>
+      <div sfpieceslist ng-if="isActivePanel('settings')" class="col-md-12"></div>
 
-          <div sfproject ng-if="isActivePanel('project')" class="col-md-12"></div>
+      <div sfproject ng-if="isActivePanel('project')" class="col-md-12"></div>
 
-          <div sflayout ng-if="isActivePanel('layout')"></div>
+      <div sflayout ng-if="isActivePanel('layout')"></div>
 
-          <div ng-show="isActivePanel('about')" class="alert alert-info">
-              <p>
-                <img src="static/icon.png" class="logo"/>
-                {{_('Square fabric')}} by utopman V{{version}}
-              </p>
-          </div>
-
-        </div>
+      <div ng-show="isActivePanel('about')" class="alert alert-info">
+          <p>
+            <img src="static/icon.png" class="logo"/>
+            {{_('Square fabric')}} by utopman V{{version}}
+          </p>
       </div>
+
+      <div usermessage></div>
 
       <script type="text/javascript" src="static/bower_components/jquery/dist/jquery.min.js"></script>
       <script type="text/javascript" src="static/bower_components/angularjs/angular.min.js"></script>
@@ -68,6 +56,7 @@
       <script type="text/javascript" src="static/directives/upload/filereader.js"></script>
       <script type="text/javascript" src="static/directives/upload/directive.js"></script>
       <script type="text/javascript" src="static/directives/download/directive.js"></script>
+      <script type="text/javascript" src="static/directives/usermessage/directive.js"></script>
 
     </body>
 </html>

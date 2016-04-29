@@ -8,7 +8,7 @@ var DEBUG = true;
 
 squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
-    $scope.version = '3.0';
+    $scope.version = '4.0';
     $scope.debug = DEBUG;
 
     $scope.maxHeight = 0;
@@ -25,9 +25,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
         project: true,
         cloud: false,
     };
-
-    $scope.userMessage = '';
-    $scope.userAlertType = 'alert-success';
 
     $scope.$on('setMaxHeight', function (e, height) {
         $scope.maxHeight = height;

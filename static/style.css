@@ -39,3 +39,8 @@ body {
 	padding: 3px;
 	border-radius: 3px;
 }
+
+#alertbox {
+	position: absolute;
+	bottom: 0px;
+}
