@@ -7,11 +7,11 @@ Bugfix
 
 - [X] longueur du plan de coupe a rendre dynamique ou customisable
 
-- [ ] les pieces ne sont pas bien calculées sur le plan de coupe
+- [X] les pieces ne sont pas bien calculées sur le plan de coupe
 
 - [X] la numérotation a partir de  1
 
-- [ ] la valeur calculée de la longueur nécessaire desfois qui foire
+- [X] la valeur calculée de la longueur nécessaire desfois qui foire
 
 - [X] les mesures des pieces (ajouter H et L)
 

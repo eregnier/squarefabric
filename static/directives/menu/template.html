@@ -26,41 +26,34 @@
           <a ng-click="togglePanel('layout')" href="#">{{_('Layout')}}</a>
         </li>
         <li>
-          <a href="#" ng-show="currentProject.name">{{_('Current project')}} {{currentProject.name | limitTo : 15}}</a>
+          <a href="#" ng-show="currentProject.name">{{currentProject.name | limitTo : 15}}</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-class="pull-rigth">
+        <li>
           <a ng-click="toggleLanguage('fr')" href="#"><img src="static/fr.gif"/></a>
         </li>
-        <li ng-class="pull-rigth">
+        <li>
           <a ng-click="toggleLanguage('en')" href="#"><img src="static/en.gif"/></a>
         </li>
-        <li ng-class="pull-rigth">
+        <li>
           <a ng-click="saveWorkingSpace()" href="#" title="{{_('Save')}}">
             <span class="glyphicon glyphicon-floppy-disk"></span>
           </a>
         </li>
-        <li ng-class="pull-rigth">
+        <li>
           <a ng-click="togglePanel('cloud')" href="#" title="{{_('Manage remote data')}}">
             <span class="glyphicon glyphicon-retweet"></span>
           </a>
         </li>
-        <li ng-show="debug" ng-class="pull-rigth">
-          <a ng-click="mock()" href="#" title="{{_('fake pieces')}}">
-            <span class="glyphicon glyphicon-copy"></span>
-          </a>
-        </li>
-        <li ng-show="debug" ng-class="pull-rigth">
+        <li>
           <a ng-click="print()" href="#" title="{{_('print')}}">
             <span class="glyphicon glyphicon-print"></span>
           </a>
         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-class="pull-rigth">
+        <li>
           <a ng-click="showAbout()" href="#">
-            <span class="glyphicon glyphicon-info-sign"></span> {{_('About')}}
+            <span title="{{_('About')}}"class="glyphicon glyphicon-info-sign"></span>
           </a>
         </li>
       </ul>
