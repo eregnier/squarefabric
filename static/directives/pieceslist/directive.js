@@ -65,5 +65,5 @@ angular.module('squarefabricApp').directive('sfpieceslist', function(optimize) {
 
             optimize.optimize(scope.$parent.currentProject.pieces, scope.$parent.currentProject.laize);
         }
-    }
+    };
 });

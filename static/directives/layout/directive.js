@@ -4,7 +4,6 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
         link : function (scope, element, attrs) {
             scope.rectangles = [];
 
-
             var repaint = function(blocks, s, height) {
                 var block,
                     coeff = scope.coefficient,
@@ -38,19 +37,34 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
                 }
             };
 
-            scope.$on('setMaxHeight', function (e, height) {
-                var s = Snap($('body').width(), height * scope.coefficient);
-                repaint(scope.$parent.currentProject.pieces, s, height);
+            var computeDisplay = function () {
+                generateSnap();
+
+                scope.$on('setMaxHeight', function (e, height) {
+                    scope.height = height;
+                    generateSnap();
+                });
+
+                var laize = scope.$parent.currentProject.laize;
+                scope.coefficient = $('body').width() / laize;
+
+                var packer = new Packer(laize, 100000);
+                optimize.optimize(scope.$parent.currentProject.pieces, laize);
+            };
+
+
+            var generateSnap = function () {
+                if(scope.height !== undefined) {
+                    var s = Snap($('body').width(), scope.height * scope.coefficient);
+                    repaint(scope.$parent.currentProject.pieces, s, scope.height);
+                }
+            };
+            computeDisplay();
+
+            scope.$on('$destroy', function () {
+                console.log('bye');
+                $('svg').remove();
             });
-
-            var laize = scope.$parent.currentProject.laize;
-            scope.coefficient = $('body').width() / laize;
-
-            var packer = new Packer(laize, 100000);
-            optimize.optimize(scope.$parent.currentProject.pieces, laize);
-
-
-
         }
 
     };

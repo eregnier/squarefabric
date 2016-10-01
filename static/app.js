@@ -6,9 +6,9 @@ squarefabricApp.config(function($compileProvider) {
 
 var DEBUG = true;
 
-squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
+squarefabricApp.controller('SquarefabricCtrl', function ($scope, $rootScope) {
 
-    $scope.version = '4.0';
+    $scope.version = '5.0';
     $scope.debug = DEBUG;
 
     $scope.maxHeight = 0;
@@ -28,7 +28,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
     $scope.$on('setMaxHeight', function (e, height) {
         $scope.maxHeight = height;
-    })
+    });
 
     $scope._ = function (word) {
         var translation = i18n[$scope.language][word];
@@ -49,7 +49,6 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
     };
 
     $scope.togglePanel = function (panelName) {
-
         var openPanels = ['cloud', 'project'];
 
         if ($scope.currentProject || openPanels.indexOf(panelName) !== -1) {
@@ -70,7 +69,7 @@ squarefabricApp.controller('SquarefabricCtrl', function ($scope) {
 
     $scope.showAbout = function () {
         $scope.allPanelsDisplay(false);
-        $scope.panels['about'] = true;
+        $scope.panels.about = true;
     };
 
     $scope.clear = function () {
