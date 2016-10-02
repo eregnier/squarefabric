@@ -9,7 +9,7 @@ angular.module('squarefabricApp').service('optimize', function($rootScope) {
           var diff;
           for (var i=0, j=criteria.length ; i<j; i++) {
             diff = sort[criteria[i]](a,b);
-            if (diff != 0)
+            if (diff !== 0)
               return diff;
           }
           return 0;
@@ -21,7 +21,7 @@ angular.module('squarefabricApp').service('optimize', function($rootScope) {
 
         var packer = new Packer(laize, 100000);
 
-        pieces.sort(sort['height']);
+        pieces.sort(sort.height);
         packer.fit(pieces);
 
         var maxH = 0;

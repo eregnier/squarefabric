@@ -63,7 +63,11 @@ window.i18n = {
       "Update": "Mettre à jour",
       "Projects saved on the cloud": "Projets sauvegardés sur le nuage",
       "Projects loaded from the cloud": "Projets chargés depuis le nuage",
-      "Missing user and/or passkey": "Il manque un nom d'utilisateur et/ou une clef secrète"
+      "Missing user and/or passkey": "Il manque un nom d'utilisateur et/ou une clef secrète",
+      "File management":"Gestion des fichiers",
+      "Update date":"Date de mise à jour",
+      "Percentage of space used on the whole fabric":"Pourcentage d'espace utilisé sur le tissu.",
+      "Efficiency":"Efficience"
    },
     en: {}
 };

@@ -38,7 +38,7 @@ function serializeProjects(appProjects) {
             });
         }
     }
-    return projects
+    return projects;
 }
 
 function splitPiece(piece, laize) {
@@ -47,9 +47,10 @@ function splitPiece(piece, laize) {
     } else {
         //add as many splited pieces as needed
         var pieces = [];
+        var pieceChunck;
         var chunks = Math.floor(piece.w / laize);
         for (var i=0; i<chunks; i++) {
-            var pieceChunck = angular.copy(piece);
+            pieceChunck = angular.copy(piece);
             pieceChunck.w = laize;
             pieces.push(pieceChunck);
         }
@@ -57,7 +58,7 @@ function splitPiece(piece, laize) {
         //add a new piece that as the length of the rest
         var widthLeft = piece.w - (laize * chunks);
         if (widthLeft > 0) {
-            var pieceChunck = angular.copy(piece);
+            pieceChunck = angular.copy(piece);
             pieceChunck.w = piece.w - (laize * chunks);
             pieces.push(pieceChunck);
         }
