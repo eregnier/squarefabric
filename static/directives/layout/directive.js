@@ -50,6 +50,18 @@ angular.module('squarefabricApp').directive('sflayout', function(optimize) {
 
                 var packer = new Packer(laize, 100000);
                 optimize.optimize(scope.$parent.currentProject.pieces, laize);
+                computeEfficiency();
+            };
+
+            var computeEfficiency = function () {
+                var totalSurface = scope.$parent.currentProject.laize * scope.height;
+                console.log(scope.$parent.currentProject.pieces);
+                var pieces = scope.$parent.currentProject.pieces;
+                var usedSurface = 0;
+                for (var i=0, j=pieces.length; i<j; i++) {
+                    usedSurface += pieces[i].h * pieces[i].w;
+                }
+                scope.efficiency = usedSurface / totalSurface * 100;
             };
 
 

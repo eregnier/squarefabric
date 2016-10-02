@@ -12,17 +12,24 @@
         <div class="row">
           <div class="col-md-12">
             <div class="row">
-              <div  class="btn col-md-12" sfupload></div>
-              <div  class="btn col-md-12" sfdownload></div>
+              <div class="panel panel-default">
+                <div class="panel-heading">{{_('File management')}}</div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <div class="btn col-md-12" sfupload></div>
+                    <div class="btn col-md-12" sfdownload></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <form class="well">
-              <h4>{{_('Project edition')}}</h4>
-              <div ng-show="currentProject">
+            <div class="panel panel-default">
+              <div class="panel-heading">{{_('Project edition')}}</div>
+              <div class="panel-body" ng-show="currentProject">
                 <div class="form-group">
                   <label>{{_('Project name')}}</label>
                   <input ng-model="currentProject.name" type="text" class="form-control" placeholder="{{_('Project name')}}">
@@ -32,13 +39,13 @@
                   <textarea cols="20" rows="7" ng-model="currentProject.description" class="form-control" placeholder="{{_('Description')}}"></textarea>
                 </div>
               </div>
-              <center>
-                <button type="submit" class="btn btn-primary" ng-click="newProject()">
+              <div class="text-center">
+                <button style="margin:10px" type="submit" class="btn btn-primary" ng-click="newProject()">
                   <span class="glyphicon glyphicon-list"></span>
                   {{_('New project')}}
                 </button>
-              </center>
-            </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -52,7 +59,7 @@
                     <th>{{_('Name')}}</th>
                     <th>{{_('Description')}}</th>
                     <th>{{_('Creation')}}</th>
-                    <th>{{_('Update')}}</th>
+                    <th>{{_('Update date')}}</th>
                     <th>{{_('Actions')}}</th>
                   </tr>
                   <tr ng-repeat="project in projects | orderBy: 'name' | filter: projectSearch">
